@@ -4,7 +4,7 @@
  * 
  * Color Themes:
  *   theme-a (default): 黑金 — bg #0A0A0A, accent #F5C518
- *   theme-b: 克莱因蓝+橙 — bg #FFFFFF, accent #002FA7, secondary #FF6B35
+ *   theme-b: 深海蓝+橙 — bg #0D1B2A, accent #FF6B35 (暗色系)
  *   theme-c: 蒂凡尼绿 — bg #FFFFFF, accent #0ABAB5, secondary #2C2C2C
  *
  * Typography: Space Grotesk (headings) + Inter (body) + JetBrains Mono (code)
@@ -115,50 +115,51 @@
 }
 
 /* ════════════════════════════════════════════════════════════
-   THEME B — 克莱因蓝+橙
-   bg: #FFFFFF  accent: #002FA7  secondary: #FF6B35
+   THEME B — 深海蓝+橙
+   bg: #0D1B2A (深海蓝)  accent: #FF6B35 (亮橙)  text: #E8F0F8
+   与A区别：底色有明显蓝调而非纯黑；与C区别：暗色系
    ════════════════════════════════════════════════════════════ */
 :root[data-theme="b"] {
   --radius: 0.5rem;
 
-  --wsl-gold: oklch(0.35 0.22 264);       /* Klein Blue #002FA7 */
-  --wsl-gold-dim: oklch(0.55 0.22 264);
-  --wsl-surface: oklch(0.97 0 0);
-  --wsl-surface-2: oklch(0.94 0 0);
-  --wsl-line: oklch(0 0 0 / 0.08);
+  --wsl-gold: oklch(0.72 0.19 38);        /* Bright Orange #FF6B35 */
+  --wsl-gold-dim: oklch(0.5 0.14 38);
+  --wsl-surface: oklch(0.18 0.04 240);    /* #1A2A3D */
+  --wsl-surface-2: oklch(0.22 0.04 240);  /* #1F3248 */
+  --wsl-line: oklch(1 0 0 / 0.08);
 
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.1 0.02 264);      /* #0A1628 */
-  --card: oklch(0.98 0 0);
-  --card-foreground: oklch(0.1 0.02 264);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.1 0.02 264);
-  --primary: oklch(0.35 0.22 264);        /* Klein Blue */
-  --primary-foreground: oklch(1 0 0);
-  --secondary: oklch(0.65 0.2 38);        /* Orange #FF6B35 */
-  --secondary-foreground: oklch(1 0 0);
-  --muted: oklch(0.96 0 0);
-  --muted-foreground: oklch(0.5 0.01 264);
-  --accent: oklch(0.65 0.2 38);
-  --accent-foreground: oklch(1 0 0);
+  --background: oklch(0.13 0.04 240);     /* #0D1B2A 深海蓝 */
+  --foreground: oklch(0.92 0.01 240);     /* #E8F0F8 冷白 */
+  --card: oklch(0.18 0.04 240);
+  --card-foreground: oklch(0.92 0.01 240);
+  --popover: oklch(0.18 0.04 240);
+  --popover-foreground: oklch(0.92 0.01 240);
+  --primary: oklch(0.72 0.19 38);         /* Bright Orange */
+  --primary-foreground: oklch(0.07 0 0);  /* near-black text on orange */
+  --secondary: oklch(0.22 0.04 240);
+  --secondary-foreground: oklch(0.8 0.01 240);
+  --muted: oklch(0.22 0.04 240);
+  --muted-foreground: oklch(0.62 0.02 240);
+  --accent: oklch(0.72 0.19 38);
+  --accent-foreground: oklch(0.07 0 0);
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.985 0 0);
-  --border: oklch(0 0 0 / 0.1);
-  --input: oklch(0 0 0 / 0.1);
-  --ring: oklch(0.35 0.22 264);
-  --chart-1: oklch(0.35 0.22 264);
-  --chart-2: oklch(0.65 0.2 38);
-  --chart-3: oklch(0.5 0.18 264);
-  --chart-4: oklch(0.75 0.15 38);
-  --chart-5: oklch(0.25 0.15 264);
-  --sidebar: oklch(0.98 0 0);
-  --sidebar-foreground: oklch(0.1 0.02 264);
-  --sidebar-primary: oklch(0.35 0.22 264);
-  --sidebar-primary-foreground: oklch(1 0 0);
-  --sidebar-accent: oklch(0.96 0 0);
-  --sidebar-accent-foreground: oklch(0.1 0.02 264);
-  --sidebar-border: oklch(0 0 0 / 0.08);
-  --sidebar-ring: oklch(0.35 0.22 264);
+  --border: oklch(1 0 0 / 0.1);
+  --input: oklch(1 0 0 / 0.1);
+  --ring: oklch(0.72 0.19 38);
+  --chart-1: oklch(0.72 0.19 38);
+  --chart-2: oklch(0.55 0.15 38);
+  --chart-3: oklch(0.45 0.12 240);
+  --chart-4: oklch(0.6 0.1 240);
+  --chart-5: oklch(0.35 0.08 240);
+  --sidebar: oklch(0.18 0.04 240);
+  --sidebar-foreground: oklch(0.92 0.01 240);
+  --sidebar-primary: oklch(0.72 0.19 38);
+  --sidebar-primary-foreground: oklch(0.07 0 0);
+  --sidebar-accent: oklch(0.22 0.04 240);
+  --sidebar-accent-foreground: oklch(0.92 0.01 240);
+  --sidebar-border: oklch(1 0 0 / 0.08);
+  --sidebar-ring: oklch(0.72 0.19 38);
 }
 
 /* ════════════════════════════════════════════════════════════

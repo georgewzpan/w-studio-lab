@@ -43,11 +43,11 @@ export function ThemeProvider({
 
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", colorTheme);
-    // Theme A is dark, B and C are light
-    if (colorTheme === "a") {
-      setTheme("dark");
-    } else {
+    // Theme A (黑金) and B (深海蓝橙) are dark; Theme C (蒂凡尼绿) is light
+    if (colorTheme === "c") {
       setTheme("light");
+    } else {
+      setTheme("dark");
     }
   }, [colorTheme]);
 
