@@ -1,9 +1,17 @@
+/**
+ * W Studio Lab — ThemeContext
+ * Manages three color themes: A (黑金), B (克莱因蓝+橙), C (蒂凡尼绿)
+ * and the dark/light mode for shadcn compatibility.
+ */
 import React, { createContext, useContext, useEffect, useState } from "react";
 
+export type ColorTheme = "a" | "b" | "c";
 type Theme = "light" | "dark";
 
 interface ThemeContextType {
   theme: Theme;
+  colorTheme: ColorTheme;
+  setColorTheme: (t: ColorTheme) => void;
   toggleTheme?: () => void;
   switchable: boolean;
 }
@@ -18,16 +26,11 @@ interface ThemeProviderProps {
 
 export function ThemeProvider({
   children,
-  defaultTheme = "light",
+  defaultTheme = "dark",
   switchable = false,
 }: ThemeProviderProps) {
-  const [theme, setTheme] = useState<Theme>(() => {
-    if (switchable) {
-      const stored = localStorage.getItem("theme");
-      return (stored as Theme) || defaultTheme;
-    }
-    return defaultTheme;
-  });
+  const [theme, setTheme] = useState<Theme>(defaultTheme);
+  const [colorTheme, setColorThemeState] = useState<ColorTheme>("a");
 
   useEffect(() => {
     const root = document.documentElement;
@@ -36,20 +39,28 @@ export function ThemeProvider({
     } else {
       root.classList.remove("dark");
     }
+  }, [theme]);
 
-    if (switchable) {
-      localStorage.setItem("theme", theme);
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", colorTheme);
+    // Theme A is dark, B and C are light
+    if (colorTheme === "a") {
+      setTheme("dark");
+    } else {
+      setTheme("light");
     }
-  }, [theme, switchable]);
+  }, [colorTheme]);
+
+  const setColorTheme = (t: ColorTheme) => {
+    setColorThemeState(t);
+  };
 
   const toggleTheme = switchable
-    ? () => {
-        setTheme(prev => (prev === "light" ? "dark" : "light"));
-      }
+    ? () => setTheme((prev) => (prev === "light" ? "dark" : "light"))
     : undefined;
 
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme, switchable }}>
+    <ThemeContext.Provider value={{ theme, colorTheme, setColorTheme, toggleTheme, switchable }}>
       {children}
     </ThemeContext.Provider>
   );
