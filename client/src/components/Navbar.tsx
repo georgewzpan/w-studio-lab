@@ -20,7 +20,6 @@ const NAV_LINKS = [
 // Theme switcher button config
 const THEMES: { id: ColorTheme; label: string; dot: string; title: string }[] = [
   { id: "a", label: "A", dot: "#F5C518", title: "方案A · 黑金科技风" },
-  { id: "b", label: "B", dot: "#002FA7", title: "方案B · 克莱因蓝+橙" },
   { id: "c", label: "C", dot: "#0ABAB5", title: "方案C · 蒂凡尼绿" },
 ];
 

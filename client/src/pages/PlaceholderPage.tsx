@@ -4,7 +4,7 @@
  * 后续替换为完整页面内容
  */
 import { Link } from "wouter";
-import { ChevronRight, Construction } from "lucide-react";
+import { ChevronRight, Construction, ExternalLink } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { getModuleIcon } from "@/components/ModuleIcons";
@@ -18,6 +18,9 @@ interface PlaceholderPageProps {
   status: "active" | "dev";
   statusLabel: string;
   comingSoonNote?: string;
+  externalLink?: string;
+  externalLinkLabel?: string;
+  externalLinkNote?: string;
 }
 
 export default function PlaceholderPage({
@@ -29,6 +32,9 @@ export default function PlaceholderPage({
   status,
   statusLabel,
   comingSoonNote,
+  externalLink,
+  externalLinkLabel,
+  externalLinkNote,
 }: PlaceholderPageProps) {
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -81,6 +87,24 @@ export default function PlaceholderPage({
               <span key={tag} className="wsl-tag">{tag}</span>
             ))}
           </div>
+
+          {/* External platform link */}
+          {externalLink && (
+            <div className="mb-8 flex flex-col gap-2">
+              <a
+                href={externalLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-gold inline-flex items-center gap-2 w-fit"
+              >
+                <ExternalLink size={14} />
+                {externalLinkLabel ?? "进入平台"}
+              </a>
+              {externalLinkNote && (
+                <p className="text-xs font-mono text-muted-foreground/60">{externalLinkNote}</p>
+              )}
+            </div>
+          )}
 
           {/* Coming soon note */}
           {comingSoonNote && (

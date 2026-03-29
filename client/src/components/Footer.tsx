@@ -19,7 +19,7 @@ export default function Footer() {
           <div className="text-xs text-muted-foreground space-y-1 text-right">
             <p>气象数据：NOAA GFS 公开数据 · AI推理：NVIDIA Earth-2 / Pangu-Weather</p>
             <p>环境数据：中国环境监测总站公开接口</p>
-            <p>城市数据致谢：上海交通大学建筑文化遗产保护国际研究中心（SJTU-IRCAHC）</p>
+            <p>城市数据致谢：SJTU-IRCAHC</p>
           </div>
         </div>
         <div className="mt-6 pt-4 border-t border-border/50 flex items-center justify-between">

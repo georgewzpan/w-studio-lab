@@ -77,8 +77,8 @@ export const RECENT_OUTPUTS = [
     moduleColor: "env",
     // 此处后续对接真实API：GET /api/env/latest-screenshot
     thumbnail: "https://images.unsplash.com/photo-1611273426858-450d8e3c9fce?w=600&q=80",
-    href: "/env",
-    description: "多污染物实时可视化与阈值报警，数据来源中国环境监测总站公开接口。",
+    href: "https://changzhouaqi-8tepdfcr.manus.space/",
+    description: "多污染物实时可视化与阈値报警，数据来源中国环境监测总站公开接口。",
   },
   {
     id: 3,
@@ -88,7 +88,7 @@ export const RECENT_OUTPUTS = [
     moduleColor: "city",
     // 此处后续对接真实API：GET /api/city/latest-screenshot
     thumbnail: "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=600&q=80",
-    href: "/city",
+    href: "https://pudongviz-lsnmlvkw.manus.space/",
     description: "241处不可移动文物空间分布可视化，支持多维筛选与保护级别分析。",
   },
 ];
@@ -112,7 +112,7 @@ export const MODULES = [
     id: "energy",
     name: "能碳与新能源",
     description: "WRF+AI精细化光伏功率预测",
-    href: "/energy",
+    href: "http://121.89.88.210:3001/login",
     status: "dev" as const,
     statusLabel: "开发中",
     tags: ["WRF", "XGBoost", "PVLib", "FastAPI"],
@@ -122,7 +122,7 @@ export const MODULES = [
     id: "env",
     name: "环境监测",
     description: "常州空气质量实时监测与预警",
-    href: "/env",
+    href: "https://changzhouaqi-8tepdfcr.manus.space/",
     status: "active" as const,
     statusLabel: "已有产出",
     tags: ["实时数据", "AQI", "Python", "Vue"],
@@ -132,7 +132,7 @@ export const MODULES = [
     id: "city",
     name: "城市数字实验室",
     description: "历史建筑与城市空间的数字化",
-    href: "/city",
+    href: "https://pudongviz-lsnmlvkw.manus.space/",
     status: "active" as const,
     statusLabel: "已有产出",
     tags: ["WebGIS", "Leaflet", "GIS", "空间分析"],

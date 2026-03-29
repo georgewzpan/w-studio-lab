@@ -14,6 +14,9 @@ export default function Energy() {
       tags={["WRF", "ERA5", "XGBoost", "PVLib", "FastAPI", "Vue"]}
       status="dev"
       statusLabel="开发中"
+      externalLink="http://121.89.88.210:3001/login"
+      externalLinkLabel="进入能碳平台"
+      externalLinkNote="可分享测试账号： mcdnhjz / 012345"
       comingSoonNote="光伏预测系统目前在开发中，预计接入WRF区域模式 + AI偏差订正模块。完成后将展示精度对比、功率曲线预测与双细则考核分析。"
     />
   );

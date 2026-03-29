@@ -16,6 +16,9 @@ import Footer from "@/components/Footer";
 import { getModuleIcon } from "@/components/ModuleIcons";
 import { MODULES, RECENT_OUTPUTS } from "@/lib/mockData";
 
+// Helper: detect external URLs
+const isExternal = (href: string) => href.startsWith("http://") || href.startsWith("https://");
+
 // Hero background image (generated)
 const HERO_BG =
   "https://d2xsxph8kpxj0f.cloudfront.net/310519663270941291/X7uFkaiHSx728UhT6iuzDD/hero_bg-jSvvRMAd4fHwd353MgLC6G.webp";
@@ -167,8 +170,15 @@ export default function Home() {
 
           {/* 3×2 Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {MODULES.map((mod, i) => (
-              <Link key={mod.id} href={mod.href}>
+            {MODULES.map((mod, i) => {
+              const ModWrapper = ({ children }: { children: React.ReactNode }) =>
+                isExternal(mod.href) ? (
+                  <a href={mod.href} target="_blank" rel="noopener noreferrer" className="block h-full">{children}</a>
+                ) : (
+                  <Link href={mod.href} className="block h-full">{children}</Link>
+                );
+              return (
+              <ModWrapper key={mod.id}>
                 <div
                   className="wsl-card p-6 h-full group cursor-pointer"
                   style={{ animationDelay: `${i * 0.1}s` }}
@@ -215,8 +225,9 @@ export default function Home() {
                     <ChevronRight size={12} className="group-hover:translate-x-1 transition-transform" />
                   </div>
                 </div>
-              </Link>
-            ))}
+              </ModWrapper>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -240,8 +251,15 @@ export default function Home() {
 
           {/* 此处后续对接真实API：GET /api/posts/recent?limit=3 */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-            {RECENT_OUTPUTS.map((item) => (
-              <Link key={item.id} href={item.href}>
+            {RECENT_OUTPUTS.map((item) => {
+              const ItemWrapper = ({ children }: { children: React.ReactNode }) =>
+                isExternal(item.href) ? (
+                  <a href={item.href} target="_blank" rel="noopener noreferrer" className="block">{children}</a>
+                ) : (
+                  <Link href={item.href} className="block">{children}</Link>
+                );
+              return (
+              <ItemWrapper key={item.id}>
                 <div className="wsl-card group cursor-pointer overflow-hidden">
                   {/* Thumbnail */}
                   <div className="relative h-44 overflow-hidden bg-muted">
@@ -276,8 +294,9 @@ export default function Home() {
                     </div>
                   </div>
                 </div>
-              </Link>
-            ))}
+              </ItemWrapper>
+              );
+            })}
           </div>
         </div>
       </section>
