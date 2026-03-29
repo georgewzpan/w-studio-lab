@@ -68,21 +68,34 @@ export default function Home() {
               </div>
 
               {/* Main title */}
-              <div className="space-y-2">
+              <div className="space-y-1">
                 <h1
                   className="text-5xl lg:text-6xl font-bold tracking-tight text-foreground"
                   style={{ fontFamily: "'Space Grotesk', sans-serif" }}
                 >
                   W Studio Lab
                 </h1>
-                <p className="text-lg text-muted-foreground font-light tracking-wide">
-                  工作室实验室
-                </p>
+                {/* WSL 缩写 + 中文副标题 */}
+                <div className="flex items-baseline gap-3">
+                  <span
+                    className="text-xs font-mono tracking-[0.35em] uppercase px-2 py-0.5 rounded border"
+                    style={{
+                      color: "var(--wsl-gold)",
+                      borderColor: "oklch(from var(--wsl-gold) l c h / 0.35)",
+                      background: "oklch(from var(--wsl-gold) l c h / 0.06)",
+                    }}
+                  >
+                    WSL
+                  </span>
+                  <p className="text-base text-muted-foreground font-light tracking-widest">
+                    工作室实验室
+                  </p>
+                </div>
               </div>
 
               {/* Tagline */}
               <p className="text-xl text-foreground/80 leading-relaxed max-w-lg">
-                AI · 气象模式 · 城市科学
+                跨领域科学计算 × AI工程应用
                 <br />
                 <span className="text-primary font-medium">独立技术实验室</span>
               </p>
@@ -92,18 +105,18 @@ export default function Home() {
 
               {/* Quote */}
               <blockquote className="text-sm text-muted-foreground italic border-l-2 border-primary/40 pl-4 max-w-md">
-                跑过WRF，写过标书，现在用Earth-2预报华东天气。
+                工具换了，但一直在研究同一件事：如何让数据说出它本来想说的话。
               </blockquote>
 
               {/* CTAs */}
               <div className="flex flex-wrap gap-3 pt-2">
-                <Link href="/weather" className="btn-gold">
-                  探索气象预报
+                <button onClick={scrollToMatrix} className="btn-gold">
+                  探索研究方向
                   <ArrowRight size={16} />
-                </Link>
-                <button onClick={scrollToMatrix} className="btn-ghost">
-                  查看全部作品
                 </button>
+                <Link href="/weather" className="btn-ghost">
+                  查看全部作品
+                </Link>
               </div>
 
               {/* Tech stack hint */}
@@ -162,9 +175,9 @@ export default function Home() {
               </span>
               <div className="wsl-divider flex-1" />
             </div>
-            <h2 className="section-title text-3xl">六大研究方向</h2>
+            <h2 className="section-title text-3xl">探索研究方向</h2>
             <p className="text-muted-foreground mt-2 max-w-xl">
-              跨领域科学计算与AI工程应用，从大气模式到城市数字孪生
+              六个方向，一个逻辑：让专业数据真正有用
             </p>
           </div>
 
