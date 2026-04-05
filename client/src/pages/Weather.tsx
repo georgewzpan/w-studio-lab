@@ -17,8 +17,11 @@ import Footer from "@/components/Footer";
 import { FUXI_FIGURES, FUXI_DATES, WEATHER_META, WeatherFigure } from "@/lib/mockData";
 
 // ─── Single figure card with date-sliced view ─────────────────────────────────
-// Each image is a 7-column horizontal strip; we show only 1 column at a time
-// using overflow:hidden + translateX to pan to the correct column.
+// Each image is a 7-column horizontal strip.
+// Thumbnail: overflow:hidden + translateX(-N/7 * 100%) to show the correct column.
+//   The inner img is set to width:700% so each column fills the container at 100% container width.
+//   translateX shifts by exactly (dayIdx * containerWidth) pixels — no CSS % ambiguity.
+// This gives maximum sharpness: the browser renders the column at full container width.
 function FigureCard({
   fig,
   dayIdx,
@@ -29,13 +32,10 @@ function FigureCard({
   onZoom: (fig: WeatherFigure, dayIdx: number) => void;
 }) {
   const totalCols = 7;
-  // Thumbnail strategy: use object-fit cover + object-position to show the correct column.
-  // Each column occupies (100/7)% of the image width.
-  // object-position x = (dayIdx / (totalCols - 1)) * 100%
-  // This tells the browser exactly which part of the image to show — no transform tricks,
-  // full native resolution rendering, maximum sharpness.
-  // object-position: 0% = leftmost column, 100% = rightmost column
-  const objPosX = `${(dayIdx / (totalCols - 1)) * 100}%`;
+  // Shift: move left by dayIdx columns. Each column = (100/7)% of the 700%-wide image.
+  // Since img width = 700% of container, one column = 100% of container.
+  // translateX(-dayIdx * (100/7)%) shifts the 700%-wide strip by exactly one column per step.
+  const translateX = `${-(dayIdx / totalCols) * 100}%`;
 
   return (
     <div className="wsl-card overflow-hidden group flex flex-col">
@@ -60,10 +60,9 @@ function FigureCard({
         </button>
       </div>
 
-      {/* Image viewport: uses object-fit:cover + object-position to crop to the correct column.
-           The container has a 1:1 aspect ratio. The image is 7:1 wide.
-           object-position x moves from 0% (col 0) to 100% (col 6) linearly.
-           This is the highest-quality cropping method — no scaling artifacts. */}
+      {/* Image viewport: overflow:hidden container, img is 700% wide, translateX pans to column.
+           Container aspect-ratio matches a single column (the original images are ~1:1 per column).
+           This renders the column at full container resolution — maximum sharpness. */}
       <div
         className="relative overflow-hidden cursor-zoom-in flex-shrink-0 bg-[#0a0a0a]"
         style={{ aspectRatio: "1 / 1" }}
@@ -72,10 +71,11 @@ function FigureCard({
         <img
           src={fig.src}
           alt={`${fig.title} — ${FUXI_DATES[dayIdx].label}`}
-          className="w-full h-full transition-all duration-300 ease-in-out"
+          className="h-full transition-transform duration-300 ease-in-out"
           style={{
-            objectFit: "cover",
-            objectPosition: `${objPosX} center`,
+            width: `${totalCols * 100}%`,
+            transform: `translateX(${translateX})`,
+            display: "block",
           }}
           loading="lazy"
         />
@@ -101,8 +101,10 @@ function FigureCard({
 }
 
 // ─── Lightbox modal ───────────────────────────────────────────────────────────
-// Shows the FULL 7-column image (no cropping) with a highlight overlay on the
-// current day's column. This gives maximum clarity and full context.
+// Shows the CURRENT DAY's column at full screen size.
+// Strategy: overflow:hidden container at max viewport size, img is 700% wide,
+// translateX pans to the selected column — same as thumbnail but at 80vh height.
+// This gives the "铺满屏幕高清细节" effect the user wants.
 function Lightbox({
   fig,
   dayIdx,
@@ -119,21 +121,19 @@ function Lightbox({
   onSetDay: (i: number) => void;
 }) {
   const totalCols = 7;
-  // The highlight column overlay: left = dayIdx/7 * 100%, width = 1/7 * 100%
-  const highlightLeft = `${(dayIdx / totalCols) * 100}%`;
-  const highlightWidth = `${(1 / totalCols) * 100}%`;
+  const translateX = `${-(dayIdx / totalCols) * 100}%`;
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm p-4"
+      className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black/95 backdrop-blur-sm"
       onClick={onClose}
     >
       <div
-        className="relative w-full max-w-5xl mx-auto"
+        className="relative w-full max-w-4xl mx-auto px-4 flex flex-col gap-3"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="flex items-start justify-between mb-3 gap-3">
+        <div className="flex items-start justify-between gap-3">
           <div>
             <h3
               className="text-base font-semibold text-white"
@@ -142,7 +142,7 @@ function Lightbox({
               {fig.title}
             </h3>
             <p className="text-xs font-mono text-yellow-400/80 mt-0.5">
-              当前选中：{FUXI_DATES[dayIdx].label} · {fig.variable} · 点击其他列切换日期
+              {FUXI_DATES[dayIdx].label} · {fig.variable}
             </p>
           </div>
           <button
@@ -154,85 +154,63 @@ function Lightbox({
           </button>
         </div>
 
-        {/* Full 7-column image with highlight overlay */}
+        {/* Single-column full-size image.
+             The container is a square (1:1 aspect ratio) with explicit width.
+             overflow:hidden clips to one column.
+             img is 700% wide (7 columns), translateX pans to the selected column.
+             translateX(-N/7 * 100%) where 100% = img width = 7 * container width
+             so each step = exactly 1 container width = 1 column. */}
         <div
-          className="relative overflow-hidden rounded border border-white/10"
-          style={{ aspectRatio: "7 / 1" }}
+          className="relative rounded border border-white/10 bg-black mx-auto"
+          style={{
+            width: "min(72vh, 100%)",
+            aspectRatio: "1 / 1",
+            overflow: "hidden",
+          }}
         >
-          {/* Full image — no cropping */}
           <img
             src={fig.src}
-            alt={fig.title}
-            className="w-full h-full object-cover"
-          />
-          {/* Dim overlay for non-selected columns */}
-          <div className="absolute inset-0 bg-black/40 pointer-events-none" />
-          {/* Highlight: remove dimming from the selected column */}
-          <div
-            className="absolute top-0 bottom-0 pointer-events-none transition-all duration-300"
+            alt={`${fig.title} — ${FUXI_DATES[dayIdx].label}`}
+            className="h-full transition-transform duration-300 ease-in-out"
             style={{
-              left: highlightLeft,
-              width: highlightWidth,
-              background: "transparent",
-              boxShadow: "inset 0 0 0 2px rgba(245,197,24,0.8)",
-              // Clear the dim overlay for this column
-              backdropFilter: "brightness(1.3)",
+              width: `${totalCols * 100}%`,
+              transform: `translateX(${translateX})`,
+              display: "block",
+              maxWidth: "none",
             }}
           />
-          {/* Clickable column zones for day switching */}
-          {FUXI_DATES.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => onSetDay(i)}
-              className="absolute top-0 bottom-0 cursor-pointer"
-              style={{
-                left: `${(i / totalCols) * 100}%`,
-                width: `${(1 / totalCols) * 100}%`,
-                background: "transparent",
-              }}
-              aria-label={`切换到 ${FUXI_DATES[i].label}`}
-            />
-          ))}
-          {/* Date label on highlighted column */}
-          <div
-            className="absolute bottom-2 pointer-events-none transition-all duration-300"
-            style={{
-              left: highlightLeft,
-              width: highlightWidth,
-              display: "flex",
-              justifyContent: "center",
-            }}
+          {/* Prev / Next arrows */}
+          <button
+            onClick={(e) => { e.stopPropagation(); onPrevDay(); }}
+            disabled={dayIdx === 0}
+            className="absolute left-3 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-black/70 border border-white/20 flex items-center justify-center text-white hover:bg-yellow-400/20 hover:border-yellow-400/50 transition-colors disabled:opacity-20 disabled:cursor-not-allowed"
+            aria-label="上一天"
           >
-            <span className="text-[10px] font-mono bg-yellow-400 text-black px-1.5 py-0.5 rounded font-bold">
+            <ChevronLeft size={20} />
+          </button>
+          <button
+            onClick={(e) => { e.stopPropagation(); onNextDay(); }}
+            disabled={dayIdx === 6}
+            className="absolute right-3 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-black/70 border border-white/20 flex items-center justify-center text-white hover:bg-yellow-400/20 hover:border-yellow-400/50 transition-colors disabled:opacity-20 disabled:cursor-not-allowed"
+            aria-label="下一天"
+          >
+            <ChevronRight size={20} />
+          </button>
+          {/* Date badge top-left */}
+          <div className="absolute top-3 left-3 pointer-events-none">
+            <span className="text-xs font-mono bg-yellow-400 text-black px-2 py-1 rounded font-bold shadow-lg">
               {FUXI_DATES[dayIdx].label}
             </span>
           </div>
-          {/* Prev / Next arrows */}
-          <button
-            onClick={onPrevDay}
-            disabled={dayIdx === 0}
-            className="absolute left-2 top-1/2 -translate-y-1/2 z-10 w-8 h-8 rounded-full bg-black/60 border border-white/20 flex items-center justify-center text-white hover:bg-yellow-400/20 hover:border-yellow-400/50 transition-colors disabled:opacity-20 disabled:cursor-not-allowed"
-            aria-label="上一天"
-          >
-            <ChevronLeft size={16} />
-          </button>
-          <button
-            onClick={onNextDay}
-            disabled={dayIdx === 6}
-            className="absolute right-2 top-1/2 -translate-y-1/2 z-10 w-8 h-8 rounded-full bg-black/60 border border-white/20 flex items-center justify-center text-white hover:bg-yellow-400/20 hover:border-yellow-400/50 transition-colors disabled:opacity-20 disabled:cursor-not-allowed"
-            aria-label="下一天"
-          >
-            <ChevronRight size={16} />
-          </button>
         </div>
 
-        {/* Day selector dots below image */}
-        <div className="flex justify-center gap-1.5 mt-3">
+        {/* Day selector */}
+        <div className="flex justify-center gap-1.5 flex-wrap">
           {FUXI_DATES.map((d, i) => (
             <button
               key={i}
               onClick={() => onSetDay(i)}
-              className={`text-[10px] font-mono px-2 py-0.5 rounded transition-all ${
+              className={`text-[11px] font-mono px-2.5 py-1 rounded transition-all ${
                 i === dayIdx
                   ? "bg-yellow-400 text-black font-bold"
                   : "text-white/50 hover:text-white border border-white/10 hover:border-white/30"
@@ -244,7 +222,7 @@ function Lightbox({
         </div>
 
         {/* Explanation */}
-        <p className="text-xs text-white/60 leading-relaxed mt-3 border-l-2 border-yellow-400/40 pl-3">
+        <p className="text-xs text-white/60 leading-relaxed border-l-2 border-yellow-400/40 pl-3 max-h-16 overflow-y-auto">
           {fig.explanation}
         </p>
       </div>
