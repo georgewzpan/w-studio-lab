@@ -133,9 +133,17 @@ function FigureCard({
 
 // ─── Lightbox modal ───────────────────────────────────────────────────────────
 // Shows the current day's column at maximum resolution.
-// Container height = min(ORIG_H px, 80vh); width = height × COL_ASPECT.
-// img: height:100%; width:auto; max-width:none — renders at native resolution (no upscale).
-// margin-left = -(dayIdx × containerWidth) — pixel-perfect column selection.
+//
+// KEY FIX: The container must be sized to EXACTLY one column's pixel dimensions.
+// We compute: containerH = min(ORIG_H, 85vh in px) at render time via CSS,
+// then containerW = containerH × COL_ASPECT. We enforce this with explicit
+// width + height on the wrapper so overflow:hidden clips precisely.
+//
+// The image is rendered at height:100%; width:auto; max-width:none so it
+// keeps its native aspect ratio. margin-left = -(dayIdx × containerW) pans
+// to the correct column. Because containerW = containerH × COL_ASPECT and
+// the image renders at height:100%, each column occupies exactly containerW
+// pixels, making the offset pixel-perfect.
 function Lightbox({
   fig,
   dayIdx,
@@ -151,19 +159,24 @@ function Lightbox({
   onNextDay: () => void;
   onSetDay: (i: number) => void;
 }) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [containerW, setContainerW] = useState(0);
+  // Measure the actual rendered height of the image container so we can
+  // derive an exact pixel width = height × COL_ASPECT.
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const [imgH, setImgH] = useState(0);
 
   useEffect(() => {
-    const el = containerRef.current;
+    const el = wrapRef.current;
     if (!el) return;
-    const ro = new ResizeObserver(() => setContainerW(el.offsetWidth));
+    const measure = () => setImgH(el.offsetHeight);
+    const ro = new ResizeObserver(measure);
     ro.observe(el);
-    setContainerW(el.offsetWidth);
+    measure();
     return () => ro.disconnect();
   }, []);
 
-  const marginLeft = containerW > 0 ? -(dayIdx * containerW) : 0;
+  // Exact pixel width of one column at the current rendered height
+  const colW = imgH > 0 ? imgH * COL_ASPECT : 0;
+  const marginLeft = colW > 0 ? -(dayIdx * colW) : 0;
 
   return (
     <div
@@ -171,8 +184,11 @@ function Lightbox({
       onClick={onClose}
     >
       <div
-        className="relative flex flex-col gap-3 w-full"
-        style={{ maxWidth: `${ORIG_H * COL_ASPECT * 1.05}px` }}
+        className="relative flex flex-col gap-3"
+        style={{
+          width: colW > 0 ? `${colW}px` : `min(${Math.round(ORIG_H * COL_ASPECT)}px, calc(100vw - 2rem))`,
+          maxWidth: "calc(100vw - 2rem)",
+        }}
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
@@ -198,20 +214,23 @@ function Lightbox({
         </div>
 
         {/* Image container:
-             - height = min(ORIG_H, 80vh) so image is never upscaled beyond native resolution
-             - width = height × COL_ASPECT (one column's aspect ratio)
-             - overflow:hidden clips to exactly one column
-             - img: height:100%; width:auto; max-width:none — native aspect ratio
-             - margin-left pixel offset selects the correct column */}
+             Strategy: fix height first (min of ORIG_H and 85vh), then derive
+             width = height × COL_ASPECT. This guarantees the container is
+             exactly one column wide, so overflow:hidden clips with zero waste.
+             The image renders at height:100%; width:auto so each column is
+             exactly colW pixels wide, making margin-left offset pixel-perfect. */}
         <div
-          ref={containerRef}
-          className="relative overflow-hidden rounded border border-white/10 bg-[#f8f8f8] mx-auto w-full"
+          ref={wrapRef}
+          className="relative overflow-hidden rounded border border-white/10 bg-[#f8f8f8]"
           style={{
-            aspectRatio: `${COL_ASPECT} / 1`,
-            maxHeight: `min(${ORIG_H}px, 80vh)`,
+            height: `min(${ORIG_H}px, 85vh)`,
+            // Width is derived from measured height × COL_ASPECT.
+            // Before first measurement, fall back to viewport-constrained estimate
+            // so the div has a real height and ResizeObserver can fire.
+            width: colW > 0 ? `${colW}px` : `min(${ORIG_H * COL_ASPECT}px, calc(100vw - 2rem))`,
           }}
         >
-          {containerW > 0 && (
+          {imgH > 0 && (
             <img
               src={fig.src}
               alt={`${fig.title} — ${FUXI_DATES[dayIdx].label}`}
