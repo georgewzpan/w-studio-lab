@@ -3,25 +3,40 @@
  * Design: 极客暗夜 / Cyberpunk-Minimal (方案A 黑金科技风)
  *
  * FuXi 7天预报，6变量，日期联动切换器
- * 每张图是7列拼接的完整图片，用CSS overflow裁剪显示对应列
- * 6张图同步联动，点击日期6张图同时切换
- * 单列放大显示，视觉冲击力远强于7列横排
+ * 原图尺寸：4176×559px，7列拼接，每列约 596×559px（宽高比 ~1.066:1）
+ *
+ * 缩略图策略：
+ *   - 容器固定高度，宽度 = 高度 × (596/559)，overflow:hidden
+ *   - 图片 height:100%; width:auto; max-width:none（保持原始宽高比，不拉伸）
+ *   - margin-left 负值精确像素偏移，每列 = 容器宽度
+ *   - 图片只缩小不放大，清晰度等于原图缩放清晰度
+ *
+ * Lightbox 策略：
+ *   - 容器高度 = min(原图高度559px, 80vh)，宽度 = 高度 × (596/559)
+ *   - 图片 height:100%; width:auto; max-width:none
+ *   - margin-left 负值精确像素偏移
+ *   - 图片以接近原始分辨率显示，最大清晰度
  *
  * 此处后续对接真实API：GET /api/weather/fuxi/latest
  */
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Link } from "wouter";
 import { ArrowLeft, ChevronLeft, ChevronRight, ZoomIn, X } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { FUXI_FIGURES, FUXI_DATES, WEATHER_META, WeatherFigure } from "@/lib/mockData";
 
+// Original image dimensions (7-column strip)
+const ORIG_W = 4176; // total width px
+const ORIG_H = 559;  // height px
+const TOTAL_COLS = 7;
+const COL_W = ORIG_W / TOTAL_COLS; // ~596.57px per column
+const COL_ASPECT = COL_W / ORIG_H; // ~1.0672 — width:height ratio of one column
+
 // ─── Single figure card with date-sliced view ─────────────────────────────────
-// Each image is a 7-column horizontal strip.
-// Thumbnail: overflow:hidden + translateX(-N/7 * 100%) to show the correct column.
-//   The inner img is set to width:700% so each column fills the container at 100% container width.
-//   translateX shifts by exactly (dayIdx * containerWidth) pixels — no CSS % ambiguity.
-// This gives maximum sharpness: the browser renders the column at full container width.
+// Container has a fixed height; width = height × COL_ASPECT.
+// img: height:100%; width:auto; max-width:none — renders at native aspect ratio, only scaled down.
+// margin-left = -(dayIdx × containerWidth) — pixel-perfect column selection.
 function FigureCard({
   fig,
   dayIdx,
@@ -31,11 +46,20 @@ function FigureCard({
   dayIdx: number;
   onZoom: (fig: WeatherFigure, dayIdx: number) => void;
 }) {
-  const totalCols = 7;
-  // Shift: move left by dayIdx columns. Each column = (100/7)% of the 700%-wide image.
-  // Since img width = 700% of container, one column = 100% of container.
-  // translateX(-dayIdx * (100/7)%) shifts the 700%-wide strip by exactly one column per step.
-  const translateX = `${-(dayIdx / totalCols) * 100}%`;
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [containerW, setContainerW] = useState(0);
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    const ro = new ResizeObserver(() => setContainerW(el.offsetWidth));
+    ro.observe(el);
+    setContainerW(el.offsetWidth);
+    return () => ro.disconnect();
+  }, []);
+
+  // margin-left shifts the full-width image left by dayIdx columns
+  const marginLeft = containerW > 0 ? -(dayIdx * containerW) : 0;
 
   return (
     <div className="wsl-card overflow-hidden group flex flex-col">
@@ -60,25 +84,32 @@ function FigureCard({
         </button>
       </div>
 
-      {/* Image viewport: overflow:hidden container, img is 700% wide, translateX pans to column.
-           Container aspect-ratio matches a single column (the original images are ~1:1 per column).
-           This renders the column at full container resolution — maximum sharpness. */}
+      {/* Image viewport:
+           - Container: width fills card, height = width / COL_ASPECT (matches one column's aspect ratio)
+           - overflow:hidden clips to exactly one column
+           - img: height:100%; width:auto; max-width:none — native aspect ratio, only downscaled
+           - margin-left: -(dayIdx × containerWidth) — pixel-perfect column pan */}
       <div
-        className="relative overflow-hidden cursor-zoom-in flex-shrink-0 bg-[#0a0a0a]"
-        style={{ aspectRatio: "1 / 1" }}
+        ref={containerRef}
+        className="relative overflow-hidden cursor-zoom-in flex-shrink-0 bg-[#f8f8f8] w-full"
+        style={{ aspectRatio: `${COL_ASPECT} / 1` }}
         onClick={() => onZoom(fig, dayIdx)}
       >
-        <img
-          src={fig.src}
-          alt={`${fig.title} — ${FUXI_DATES[dayIdx].label}`}
-          className="h-full transition-transform duration-300 ease-in-out"
-          style={{
-            width: `${totalCols * 100}%`,
-            transform: `translateX(${translateX})`,
-            display: "block",
-          }}
-          loading="lazy"
-        />
+        {containerW > 0 && (
+          <img
+            src={fig.src}
+            alt={`${fig.title} — ${FUXI_DATES[dayIdx].label}`}
+            style={{
+              height: "100%",
+              width: "auto",
+              maxWidth: "none",
+              display: "block",
+              marginLeft: `${marginLeft}px`,
+              transition: "margin-left 0.3s ease-in-out",
+            }}
+            loading="lazy"
+          />
+        )}
         {/* Hover overlay */}
         <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/5 transition-colors pointer-events-none" />
         {/* Zoom hint */}
@@ -101,10 +132,10 @@ function FigureCard({
 }
 
 // ─── Lightbox modal ───────────────────────────────────────────────────────────
-// Shows the CURRENT DAY's column at full screen size.
-// Strategy: overflow:hidden container at max viewport size, img is 700% wide,
-// translateX pans to the selected column — same as thumbnail but at 80vh height.
-// This gives the "铺满屏幕高清细节" effect the user wants.
+// Shows the current day's column at maximum resolution.
+// Container height = min(ORIG_H px, 80vh); width = height × COL_ASPECT.
+// img: height:100%; width:auto; max-width:none — renders at native resolution (no upscale).
+// margin-left = -(dayIdx × containerWidth) — pixel-perfect column selection.
 function Lightbox({
   fig,
   dayIdx,
@@ -120,16 +151,28 @@ function Lightbox({
   onNextDay: () => void;
   onSetDay: (i: number) => void;
 }) {
-  const totalCols = 7;
-  const translateX = `${-(dayIdx / totalCols) * 100}%`;
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [containerW, setContainerW] = useState(0);
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    const ro = new ResizeObserver(() => setContainerW(el.offsetWidth));
+    ro.observe(el);
+    setContainerW(el.offsetWidth);
+    return () => ro.disconnect();
+  }, []);
+
+  const marginLeft = containerW > 0 ? -(dayIdx * containerW) : 0;
 
   return (
     <div
-      className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black/95 backdrop-blur-sm"
+      className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black/95 backdrop-blur-sm p-4"
       onClick={onClose}
     >
       <div
-        className="relative w-full max-w-4xl mx-auto px-4 flex flex-col gap-3"
+        className="relative flex flex-col gap-3 w-full"
+        style={{ maxWidth: `${ORIG_H * COL_ASPECT * 1.05}px` }}
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
@@ -154,31 +197,34 @@ function Lightbox({
           </button>
         </div>
 
-        {/* Single-column full-size image.
-             The container is a square (1:1 aspect ratio) with explicit width.
-             overflow:hidden clips to one column.
-             img is 700% wide (7 columns), translateX pans to the selected column.
-             translateX(-N/7 * 100%) where 100% = img width = 7 * container width
-             so each step = exactly 1 container width = 1 column. */}
+        {/* Image container:
+             - height = min(ORIG_H, 80vh) so image is never upscaled beyond native resolution
+             - width = height × COL_ASPECT (one column's aspect ratio)
+             - overflow:hidden clips to exactly one column
+             - img: height:100%; width:auto; max-width:none — native aspect ratio
+             - margin-left pixel offset selects the correct column */}
         <div
-          className="relative rounded border border-white/10 bg-black mx-auto"
+          ref={containerRef}
+          className="relative overflow-hidden rounded border border-white/10 bg-[#f8f8f8] mx-auto w-full"
           style={{
-            width: "min(72vh, 100%)",
-            aspectRatio: "1 / 1",
-            overflow: "hidden",
+            aspectRatio: `${COL_ASPECT} / 1`,
+            maxHeight: `min(${ORIG_H}px, 80vh)`,
           }}
         >
-          <img
-            src={fig.src}
-            alt={`${fig.title} — ${FUXI_DATES[dayIdx].label}`}
-            className="h-full transition-transform duration-300 ease-in-out"
-            style={{
-              width: `${totalCols * 100}%`,
-              transform: `translateX(${translateX})`,
-              display: "block",
-              maxWidth: "none",
-            }}
-          />
+          {containerW > 0 && (
+            <img
+              src={fig.src}
+              alt={`${fig.title} — ${FUXI_DATES[dayIdx].label}`}
+              style={{
+                height: "100%",
+                width: "auto",
+                maxWidth: "none",
+                display: "block",
+                marginLeft: `${marginLeft}px`,
+                transition: "margin-left 0.3s ease-in-out",
+              }}
+            />
+          )}
           {/* Prev / Next arrows */}
           <button
             onClick={(e) => { e.stopPropagation(); onPrevDay(); }}
