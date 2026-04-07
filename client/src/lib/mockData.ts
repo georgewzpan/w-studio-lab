@@ -11,12 +11,12 @@ export const CDN = {
   FIG_B: "https://d2xsxph8kpxj0f.cloudfront.net/310519663270941291/X7uFkaiHSx728UhT6iuzDD/fig_B_final_9159735f.webp",
   FIG_C: "https://d2xsxph8kpxj0f.cloudfront.net/310519663270941291/X7uFkaiHSx728UhT6iuzDD/fig_C_final_9c41c528.webp",
   // FuXi 7-day forecast figures (2026-03-29 00UTC init, 7 columns each)
-  FUXI_FIG1: "https://d2xsxph8kpxj0f.cloudfront.net/310519663270941291/X7uFkaiHSx728UhT6iuzDD/fuxi_fig1_z500slp_d9d1fd9b.webp",
-  FUXI_FIG2: "https://d2xsxph8kpxj0f.cloudfront.net/310519663270941291/X7uFkaiHSx728UhT6iuzDD/fuxi_fig2_850wind_cbffb065.webp",
-  FUXI_FIG3: "https://d2xsxph8kpxj0f.cloudfront.net/310519663270941291/X7uFkaiHSx728UhT6iuzDD/fuxi_fig3_700rh_47d4b9fe.webp",
-  FUXI_FIG4: "https://d2xsxph8kpxj0f.cloudfront.net/310519663270941291/X7uFkaiHSx728UhT6iuzDD/fuxi_fig4_surface_9d90ea7a.webp",
-  FUXI_FIG5: "https://d2xsxph8kpxj0f.cloudfront.net/310519663270941291/X7uFkaiHSx728UhT6iuzDD/fuxi_fig5_10mwind_d94e7ae2.webp",
-  FUXI_FIG6: "https://d2xsxph8kpxj0f.cloudfront.net/310519663270941291/X7uFkaiHSx728UhT6iuzDD/fuxi_fig6_precip_10e3556e.webp",
+  FUXI_FIG1: "https://wstudiolab-assets.oss-cn-wulanchabu.aliyuncs.com/fuxi_fig1_z500slp.png",
+  FUXI_FIG2: "https://wstudiolab-assets.oss-cn-wulanchabu.aliyuncs.com/fuxi_fig2_850wind.png",
+  FUXI_FIG3: "https://wstudiolab-assets.oss-cn-wulanchabu.aliyuncs.com/fuxi_fig3_700rh.png",
+  FUXI_FIG4: "https://wstudiolab-assets.oss-cn-wulanchabu.aliyuncs.com/fuxi_fig4_surface.png",
+  FUXI_FIG5: "https://wstudiolab-assets.oss-cn-wulanchabu.aliyuncs.com/fuxi_fig5_10mwind.png",
+  FUXI_FIG6: "https://wstudiolab-assets.oss-cn-wulanchabu.aliyuncs.com/fuxi_fig6_precip.png",
 };
 
 // ─── Hero Carousel ────────────────────────────────────────────────────────────
