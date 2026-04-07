@@ -12,7 +12,7 @@
  *   ④ 联系方式 Footer
  */
 import { useState, useRef, useEffect } from "react";
-import { ChevronLeft, ChevronRight, ZoomIn, X, Mail, Cpu, Wind, Leaf, Building2, Code2 } from "lucide-react";
+import { ChevronLeft, ChevronRight, ZoomIn, X, Mail, Wind, Leaf, Building2, Code2, BookOpen } from "lucide-react";
 import { FUXI_FIGURES, FUXI_DATES, WEATHER_META, WeatherFigure, NOTES_MOCK } from "@/lib/mockData";
 
 // Original image dimensions (7-column strip)
@@ -278,6 +278,13 @@ const CAPABILITIES = [
     tags: ["AI Coding", "全栈部署", "LLM 应用", "Cloud / Docker"],
     desc: "具备从模型推理、数据管线到前端可视化的全链路 AI 工程能力，熟练运用 AI Coding 工具加速开发，独立完成从 0 到 1 的技术产品构建与云端部署。",
   },
+  {
+    icon: BookOpen,
+    title: "技术笔记",
+    subtitle: "Tech Notes & Thinking",
+    tags: ["AI气象", "新能源", "工程实践", "持续更新"],
+    desc: null, // rendered separately as note list
+  },
 ];
 
 // ─── Main share page ──────────────────────────────────────────────────────────
@@ -521,9 +528,24 @@ export default function ShareWeather() {
                       </p>
                     </div>
                   </div>
-                  <p className="text-xs text-muted-foreground leading-relaxed">
-                    {cap.desc}
-                  </p>
+                  {cap.desc ? (
+                    <p className="text-xs text-muted-foreground leading-relaxed">
+                      {cap.desc}
+                    </p>
+                  ) : (
+                    <ul className="space-y-2">
+                      {NOTES_MOCK.slice(0, 2).map((note) => (
+                        <li key={note.id} className="flex items-start gap-2">
+                          <span className="mt-1.5 w-1 h-1 rounded-full bg-primary/50 flex-shrink-0" />
+                          <div className="min-w-0">
+                            <p className="text-xs text-foreground/80 leading-snug line-clamp-2">{note.title}</p>
+                            <p className="text-[10px] font-mono text-muted-foreground/50 mt-0.5">{note.date}</p>
+                          </div>
+                        </li>
+                      ))}
+                      <li className="text-[10px] font-mono text-muted-foreground/40 pl-3">// 更多持续更新中</li>
+                    </ul>
+                  )}
                   <div className="flex flex-wrap gap-1.5 mt-auto pt-1">
                     {cap.tags.map((tag) => (
                       <span
@@ -537,56 +559,6 @@ export default function ShareWeather() {
                 </div>
               );
             })}
-          </div>
-        </div>
-      </section>
-
-      {/* ⑤ Tech Notes / Thinking */}
-      <section className="py-16 border-t border-border">
-        <div className="container">
-          <div className="mb-10">
-            <p className="text-xs font-mono text-primary/70 tracking-widest mb-2">TECH NOTES &amp; THINKING</p>
-            <h2
-              className="text-2xl font-bold text-foreground mb-2"
-              style={{ fontFamily: "'Space Grotesk', sans-serif" }}
-            >
-              技术思考
-            </h2>
-            <p className="text-sm text-muted-foreground">随笔与思考，不定期发布。看起来随意，其实不然。</p>
-          </div>
-          <div className="space-y-0 max-w-2xl">
-            {NOTES_MOCK.map((note, idx) => (
-              <article
-                key={note.id}
-                className="group flex items-start gap-4 border-b border-border/40 py-6 last:border-0"
-              >
-                {/* Timeline */}
-                <div className="flex flex-col items-center flex-shrink-0 mt-1">
-                  <div className="w-2 h-2 rounded-full bg-primary/50 group-hover:bg-primary transition-colors" />
-                  {idx < NOTES_MOCK.length - 1 && (
-                    <div className="w-px flex-1 bg-border/40 mt-2 min-h-[48px]" />
-                  )}
-                </div>
-                <div className="flex-1 min-w-0">
-                  <span className="text-xs font-mono text-muted-foreground/50 mb-1 block">{note.date}</span>
-                  <h3
-                    className="text-base font-semibold text-foreground group-hover:text-primary transition-colors leading-snug mb-2"
-                    style={{ fontFamily: "'Space Grotesk', sans-serif" }}
-                  >
-                    {note.title}
-                  </h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed mb-3">{note.excerpt}</p>
-                  <div className="flex flex-wrap gap-1.5">
-                    {note.tags.map((tag) => (
-                      <span key={tag} className="wsl-tag text-[10px]">{tag}</span>
-                    ))}
-                  </div>
-                </div>
-              </article>
-            ))}
-          </div>
-          <div className="mt-8 border border-dashed border-border/50 rounded-lg p-6 text-center max-w-2xl">
-            <p className="text-xs font-mono text-muted-foreground/50">// 更多笔记持续更新中</p>
           </div>
         </div>
       </section>
