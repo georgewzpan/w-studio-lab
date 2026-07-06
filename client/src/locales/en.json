@@ -1,0 +1,100 @@
+{
+  "header": {
+    "tagline": "Independent Tech Lab · Climate × City × AI",
+    "showcase": "AI Weather Showcase"
+  },
+  "weather": {
+    "badge": "AI Weather Forecast · FuXi",
+    "title": "East China 7-Day Weather Analysis",
+    "desc": "Powered by FuXi (Fudan University) large model with NVIDIA Earth-2 inference framework. Initialized at {{initTime}}, 7-day forecast horizon, 6 output variables.",
+    "tags": ["FuXi", "Earth-2", "7-Day Forecast", "6 Variables", "East China"],
+    "selectDate": "Select Date:",
+    "prevDay": "Previous Day",
+    "nextDay": "Next Day",
+    "zoomIn": "Zoom In",
+    "clickZoom": "Click to Zoom",
+    "initTime": "Init Time:",
+    "model": "Model:",
+    "region": "Region:",
+    "eastChina": "East China",
+    "forecastRange": "Forecast Range:",
+    "days7": "7 Days",
+    "variables": "Variables:",
+    "vars6": "6 Variables",
+    "dataSource": "Data Source:",
+    "gfsData": "NOAA GFS Open Data"
+  },
+  "capabilities": {
+    "sectionLabel": "Research & Capabilities",
+    "sectionDesc": "AI weather is just one facet · Broader research and engineering directions below",
+    "notesMore": "// More updates coming",
+    "items": [
+      {
+        "title": "AI Weather Forecast",
+        "subtitle": "AI Weather Forecast",
+        "desc": "Built on Fudan University's FuXi model and NVIDIA Earth-2 inference framework, delivering 7-day, 6-variable weather forecasts for East China. Inference time ~24 min, accuracy approaching ECMWF level.",
+        "tags": ["FuXi", "Pangu-Weather", "NVIDIA Earth-2", "GFS Initial Field"]
+      },
+      {
+        "title": "Carbon & Renewable Energy",
+        "subtitle": "Carbon & Renewable Energy",
+        "desc": "Integrating meteorological data with energy models for wind/solar power assessment, carbon emission accounting, and dual-carbon pathway analysis to support renewable energy projects.",
+        "tags": ["Dual-Carbon Analysis", "Wind/Solar Assessment", "Carbon Accounting", "Energy Planning"]
+      },
+      {
+        "title": "Environmental Monitoring",
+        "subtitle": "Environmental Monitoring",
+        "desc": "Integrating China's national environmental monitoring APIs for real-time AQI, PM2.5, and O₃ tracking with spatial visualization, supporting pollution source tracing.",
+        "tags": ["Real-time AQI", "Air Quality Forecast", "Env Data Viz", "Multi-station"]
+      },
+      {
+        "title": "Digital City & GIS",
+        "subtitle": "Digital City & GIS",
+        "desc": "WebGIS-based urban spatial analysis, urban heat island assessment, and 3D city modeling to support urban planning and management decision-making.",
+        "tags": ["WebGIS", "Spatial Analysis", "Urban Heat Island", "3D Visualization"]
+      },
+      {
+        "title": "AI Engineering",
+        "subtitle": "AI Engineering",
+        "desc": "Full-stack AI engineering capability spanning model inference, data pipelines, and frontend visualization. Proficient in AI Coding tools for accelerated development, independently shipping products from 0 to 1.",
+        "tags": ["AI Coding", "Full-stack Deploy", "LLM Apps", "Cloud / Docker"]
+      },
+      {
+        "title": "Tech Notes",
+        "subtitle": "Tech Notes & Thinking",
+        "tags": ["AI Weather", "Renewable Energy", "Engineering", "Ongoing"]
+      }
+    ]
+  },
+  "notes": {
+    "titles": [
+      "AI Weather Model Evolution: Pangu / FuXi / GraphCast Layer-by-Layer Analysis",
+      "Dual-Assessment Policy and the Business Logic of Solar Power Forecasting",
+      "From WRF to Earth-2: A Forecaster's Technology Migration Path"
+    ]
+  },
+  "footer": {
+    "labDesc1": "Cross-domain Scientific Computing × AI Engineering — Independent Tech Lab",
+    "labDesc2": "Climate × City × AI · Understanding the planet through data, serving cities through technology",
+    "dataAttr1": "Weather Data: NOAA GFS Open Data · AI Inference: NVIDIA Earth-2 / FuXi",
+    "dataAttr2": "Environmental Data: China National Environmental Monitoring Centre",
+    "dataAttr3": "Urban Data: SJTU-IRCAHC",
+    "copyright": "© 2026 W Studio Lab · The tools changed, but the research never stopped."
+  },
+  "figTitles": [
+    "500hPa Geopotential Height + Sea Level Pressure",
+    "850hPa Wind Speed + Wind Barbs",
+    "700hPa Relative Humidity + Wind Field",
+    "Surface Pressure + 2m Temperature",
+    "10m Wind Speed + Wind Barbs",
+    "Daily Precipitation (24h Accumulated)"
+  ],
+  "figExplanations": [
+    "The 500hPa geopotential height field is the core reference level for weather forecasting, representing the atmospheric flow pattern at mid-troposphere (~5500m). Dense blue contours indicate trough lines (cold air activity), while red-orange areas indicate ridges (high pressure control). Overlaid sea-level pressure contours (black) reveal surface weather system positions. The evolution from Mar 29 to Apr 04 clearly shows the eastward movement of westerly troughs and East China coming under high-pressure ridge control — the key basis for forecasting the week's sunny/rainy pattern.",
+    "The 850hPa level near the top of the atmospheric boundary layer is where wind fields best represent low-level moisture transport direction. Wind barbs indicate wind direction and speed, with each full barb representing 10 knots (~5 m/s). Southwest winds indicate moisture transport corridors — a necessary condition for precipitation; northerly winds indicate cold air intrusion paths. This chart is a key reference for determining precipitation location and intensity over East China.",
+    "The 700hPa relative humidity field is an important indicator of mid-level atmospheric moisture, directly related to cloud development and precipitation potential. RH >80% (dark areas) typically corresponds to cloud regions and potential precipitation zones; <30% (light areas) indicates dry descending airflow. The overlaid wind field shows mid-level steering flow direction, helping determine weather system movement paths. Combined with 850hPa moisture transport, this enables comprehensive assessment of precipitation probability distribution over East China.",
+    "The surface pressure field (sea-level pressure, SLP) is the most intuitive weather system indicator: low pressure centers (L) correspond to cyclonic circulation and upward motion; high pressure centers (H) correspond to anticyclones and fair weather. The 2m temperature (color fill) reflects near-surface thermal conditions, with warm/cold front positions identifiable through temperature gradient maxima. From Mar 29 to Apr 04, the eastward movement of frontal systems into the sea and the transition from rainy to fair weather over East China can be clearly tracked.",
+    "The 10m wind field directly reflects surface wind conditions, with direct applications in wind energy assessment, offshore operations, and urban ventilation. Wind barbs are accurate to 5 knots, enabling identification of strong wind zones (≥Beaufort 7). Combined with surface pressure gradients, wind causation can be determined (frontal passage, cyclone periphery, terrain acceleration, etc.). This chart is also an important reference for coastal disaster prevention, especially during spring when cold air activity is frequent — wind forecast accuracy directly impacts fishing and shipping safety.",
+    "Daily 24-hour accumulated precipitation is the most direct precipitation forecast product, with a color scale from light blue (light rain, <10mm) to deep red (heavy rain, >50mm). FuXi's precipitation forecasting performance approaches ECMWF level, particularly for large-scale precipitation systems (frontal rain, cyclonic rain). From the 7-day sequence, the timing and location of major precipitation events can be identified, providing decision support for agriculture, water conservancy, and urban drainage."
+  ]
+}
