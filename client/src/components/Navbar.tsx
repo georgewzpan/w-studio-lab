@@ -5,23 +5,15 @@
  */
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Globe } from "lucide-react";
 import { useTheme, type ColorTheme } from "@/contexts/ThemeContext";
+import { useTranslation } from "react-i18next";
 
-const NAV_LINKS = [
-  { href: "/weather", label: "AI气象" },
-  { href: "/energy", label: "能碳·新能源" },
-  { href: "/env", label: "环境监测" },
-  { href: "/city", label: "城市数字" },
-  { href: "/works", label: "工程AI" },
-  { href: "/notes", label: "技术笔记" },
-];
-
-// Theme switcher button config
-const THEMES: { id: ColorTheme; label: string; dot: string; title: string }[] = [
-  { id: "a", label: "A", dot: "#F5C518", title: "方案A · 黑金科技风" },
-  { id: "b", label: "B", dot: "#FF6B35", title: "方案B · 深海蓝+橙" },
-  { id: "c", label: "C", dot: "#0ABAB5", title: "方案C · 蒂凡尼绿" },
+// Theme switcher button config (labels are single letters, titles use i18n)
+const THEMES: { id: ColorTheme; label: string; dot: string; titleKey: string }[] = [
+  { id: "a", label: "A", dot: "#F5C518", titleKey: "nav.themeA" },
+  { id: "b", label: "B", dot: "#FF6B35", titleKey: "nav.themeB" },
+  { id: "c", label: "C", dot: "#0ABAB5", titleKey: "nav.themeC" },
 ];
 
 export default function Navbar() {
@@ -29,6 +21,24 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const { colorTheme, setColorTheme } = useTheme();
+  const { t, i18n } = useTranslation();
+
+  const isEn = i18n.language === "en";
+
+  const toggleLang = () => {
+    const next = isEn ? "zh" : "en";
+    i18n.changeLanguage(next);
+    localStorage.setItem("lang", next);
+  };
+
+  const NAV_LINKS = [
+    { href: "/weather", label: t("nav.weather") },
+    { href: "/energy", label: t("nav.energy") },
+    { href: "/env", label: t("nav.env") },
+    { href: "/city", label: t("nav.city") },
+    { href: "/works", label: t("nav.works") },
+    { href: "/notes", label: t("nav.notes") },
+  ];
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 20);
@@ -58,7 +68,7 @@ export default function Navbar() {
               W Studio Lab
             </span>
             <span className="text-muted-foreground text-[10px] tracking-widest uppercase">
-              工作室实验室
+              {t("nav.brandSubtitle")}
             </span>
           </div>
         </Link>
@@ -80,31 +90,41 @@ export default function Navbar() {
           ))}
         </nav>
 
-        {/* Right side: Theme switcher + mobile toggle */}
+        {/* Right side: Lang + Theme switcher + mobile toggle */}
         <div className="flex items-center gap-2 flex-shrink-0">
+
+          {/* Language Switcher — prominent pill */}
+          <button
+            onClick={toggleLang}
+            title={t("nav.langSwitchTitle")}
+            className="hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-full border-2 border-primary/60 bg-primary/10 hover:bg-primary/20 hover:border-primary transition-all duration-200 text-primary font-mono font-bold text-xs tracking-wider shadow-sm hover:shadow-primary/20 hover:shadow-md"
+          >
+            <Globe size={13} className="flex-shrink-0" />
+            <span>{t("nav.langSwitch")}</span>
+          </button>
+
           {/* A/B/C Theme Switcher */}
           <div
             className="hidden md:flex items-center gap-1 px-2 py-1 rounded border border-border bg-muted/20"
-            title="切换配色方案"
+            title={t("nav.colorScheme")}
           >
-            {THEMES.map((t) => (
+            {THEMES.map((th) => (
               <button
-                key={t.id}
-                onClick={() => setColorTheme(t.id)}
-                title={t.title}
-                aria-label={t.title}
+                key={th.id}
+                onClick={() => setColorTheme(th.id)}
+                title={t(th.titleKey)}
+                aria-label={t(th.titleKey)}
                 className={`relative flex items-center gap-1.5 px-2.5 py-1 rounded text-xs font-mono font-semibold transition-all duration-200 ${
-                  colorTheme === t.id
+                  colorTheme === th.id
                     ? "bg-primary text-primary-foreground shadow-sm"
                     : "text-muted-foreground hover:text-foreground hover:bg-muted/60"
                 }`}
               >
-                {/* Color dot */}
                 <span
                   className="w-2 h-2 rounded-full flex-shrink-0"
-                  style={{ backgroundColor: t.dot, opacity: colorTheme === t.id ? 1 : 0.6 }}
+                  style={{ backgroundColor: th.dot, opacity: colorTheme === th.id ? 1 : 0.6 }}
                 />
-                {t.label}
+                {th.label}
               </button>
             ))}
           </div>
@@ -139,31 +159,38 @@ export default function Navbar() {
               </Link>
             ))}
 
-            {/* Mobile theme switcher */}
+            {/* Mobile lang + theme switcher */}
             <div className="mt-3 pt-3 border-t border-border">
+              <button
+                onClick={() => { toggleLang(); setMobileOpen(false); }}
+                className="flex items-center gap-2 px-3 py-2 w-full text-sm rounded border-2 border-primary/60 bg-primary/10 text-primary font-mono font-bold mb-3 hover:bg-primary/20 transition-colors"
+              >
+                <Globe size={14} />
+                {t("nav.langSwitchFull")}
+              </button>
               <p className="text-[10px] font-mono text-muted-foreground/60 uppercase tracking-widest mb-2 px-3">
-                配色方案
+                {t("nav.colorScheme")}
               </p>
               <div className="flex gap-2 px-3">
-                {THEMES.map((t) => (
+                {THEMES.map((th) => (
                   <button
-                    key={t.id}
+                    key={th.id}
                     onClick={() => {
-                      setColorTheme(t.id);
+                      setColorTheme(th.id);
                       setMobileOpen(false);
                     }}
-                    title={t.title}
+                    title={t(th.titleKey)}
                     className={`flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-mono font-semibold border transition-all duration-200 ${
-                      colorTheme === t.id
+                      colorTheme === th.id
                         ? "bg-primary text-primary-foreground border-primary"
                         : "text-muted-foreground border-border hover:text-foreground hover:border-primary/40"
                     }`}
                   >
                     <span
                       className="w-2 h-2 rounded-full"
-                      style={{ backgroundColor: t.dot }}
+                      style={{ backgroundColor: th.dot }}
                     />
-                    {t.label}
+                    {th.label}
                   </button>
                 ))}
               </div>

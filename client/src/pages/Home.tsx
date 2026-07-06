@@ -15,6 +15,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { getModuleIcon } from "@/components/ModuleIcons";
 import { MODULES, RECENT_OUTPUTS, HERO_SLIDES } from "@/lib/mockData";
+import { useTranslation } from "react-i18next";
 
 // Helper: detect external URLs
 const isExternal = (href: string) =>
@@ -25,8 +26,9 @@ const HERO_BG =
   "https://d2xsxph8kpxj0f.cloudfront.net/310519663270941291/X7uFkaiHSx728UhT6iuzDD/hero_bg-jSvvRMAd4fHwd353MgLC6G.webp";
 
 export default function Home() {
+  const { t, i18n } = useTranslation();
+  const isEn = i18n.language === "en";
   const matrixRef = useRef<HTMLElement>(null);
-
   // Hero carousel state
   const [slideIdx, setSlideIdx] = useState(0);
   const slideCount = HERO_SLIDES.length;
@@ -75,7 +77,7 @@ export default function Home() {
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded border border-primary/30 bg-primary/5">
                 <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
                 <span className="text-xs font-mono text-primary tracking-widest uppercase">
-                  Independent Tech Lab
+                  {t("home.badge")}
                 </span>
               </div>
 
@@ -87,21 +89,21 @@ export default function Home() {
                 >
                   W Studio Lab
                 </h1>
-                {/* 中文副标题，单行 */}
+                {/* Subtitle */}
                 <p className="text-base text-muted-foreground font-light tracking-widest">
-                  工作室实验室 · 独立技术实验室
+                  {t("home.subtitle")}
                 </p>
               </div>
 
-              {/* Tagline: 主题定位 */}
+              {/* Tagline */}
               <p
                 className="text-2xl font-semibold leading-snug"
                 style={{ fontFamily: "'Space Grotesk', sans-serif" }}
               >
-                <span className="text-primary">气候 × 城市 × AI</span>
+                <span className="text-primary">{t("home.tagline")}</span>
               </p>
               <p className="text-base text-foreground/70 leading-relaxed max-w-lg -mt-3">
-                用数据理解蓝星，用技术服务城市
+                {t("home.desc")}
               </p>
 
               {/* Divider */}
@@ -109,38 +111,31 @@ export default function Home() {
 
               {/* Quote */}
               <blockquote className="text-sm text-muted-foreground italic border-l-2 border-primary/40 pl-4 max-w-md">
-                工具换了，但一直在研究同一件事：如何让数据说出它本来想说的话。
+                {t("home.quote")}
               </blockquote>
 
               {/* CTAs */}
               <div className="flex flex-wrap gap-3 pt-2">
                 <button onClick={scrollToMatrix} className="btn-gold">
-                  探索研究方向
+                  {t("home.cta1")}
                   <ArrowRight size={16} />
                 </button>
                 <Link href="/weather" className="btn-ghost">
-                  查看全部作品
+                  {t("home.cta2")}
                 </Link>
               </div>
 
               {/* Tags: two rows */}
               <div className="space-y-2 pt-1">
-                {/* Row 1: 中文能力标签 */}
+                {/* Row 1: domain tags */}
                 <div className="flex flex-wrap gap-2">
-                  {[
-                    "AI气象模式",
-                    "双碳·新能源",
-                    "大气环境",
-                    "数字城市",
-                    "AI工程实践",
-                    "气候思考",
-                  ].map((tag) => (
+                  {(t("home.domainTags", { returnObjects: true }) as string[]).map((tag: string) => (
                     <span key={tag} className="wsl-tag">
                       {tag}
                     </span>
                   ))}
                 </div>
-                {/* Row 2: 英文工具标签 */}
+                {/* Row 2: tech tool tags (mostly English, no translation needed) */}
                 <div className="flex flex-wrap gap-2">
                   {[
                     "Earth-2",
@@ -201,14 +196,14 @@ export default function Home() {
                 <button
                   onClick={prevSlide}
                   className="absolute left-2 top-1/2 -translate-y-1/2 z-30 w-7 h-7 rounded-full bg-background/60 border border-primary/30 flex items-center justify-center text-primary hover:bg-primary/20 transition-colors"
-                  aria-label="上一张"
+                  aria-label={t("home.prevSlide")}
                 >
                   <ChevronLeft size={14} />
                 </button>
                 <button
                   onClick={nextSlide}
                   className="absolute right-2 top-1/2 -translate-y-1/2 z-30 w-7 h-7 rounded-full bg-background/60 border border-primary/30 flex items-center justify-center text-primary hover:bg-primary/20 transition-colors"
-                  aria-label="下一张"
+                  aria-label={t("home.nextSlide")}
                 >
                   <ChevronRight size={14} />
                 </button>
@@ -222,7 +217,7 @@ export default function Home() {
                       className={`w-1.5 h-1.5 rounded-full transition-all ${
                         i === slideIdx ? "bg-primary w-4" : "bg-primary/30"
                       }`}
-                      aria-label={`切换到第${i + 1}张`}
+                      aria-label={t("home.slideN", { n: i + 1 })}
                     />
                   ))}
                 </div>
@@ -246,13 +241,13 @@ export default function Home() {
             <div className="flex items-center gap-3 mb-3">
               <div className="wsl-divider flex-1" />
               <span className="text-xs font-mono text-primary tracking-widest uppercase px-3">
-                Research Modules
+                {t("home.researchModules")}
               </span>
               <div className="wsl-divider flex-1" />
             </div>
-            <h2 className="section-title text-3xl">探索研究方向</h2>
+            <h2 className="section-title text-3xl">{t("home.researchTitle")}</h2>
             <p className="text-muted-foreground mt-2 max-w-xl">
-              六个方向，一个逻辑：让专业数据真正有用
+              {t("home.researchDesc")}
             </p>
           </div>
 
@@ -292,7 +287,7 @@ export default function Home() {
                             : "bg-primary/10 text-primary border border-primary/20"
                         }`}
                       >
-                        {mod.status === "dev" ? "🔄 开发中" : "✅ " + mod.statusLabel}
+                        {mod.status === "dev" ? t("home.statusDev") : "✅ " + t(`modules.${mod.id}.statusLabel`)}
                       </span>
                     </div>
 
@@ -301,12 +296,12 @@ export default function Home() {
                       className="text-base font-semibold text-foreground mb-1 group-hover:text-primary transition-colors"
                       style={{ fontFamily: "'Space Grotesk', sans-serif" }}
                     >
-                      {mod.name}
+                      {t(`modules.${mod.id}.name`)}
                     </h3>
 
                     {/* Description */}
                     <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
-                      {mod.description}
+                      {t(`modules.${mod.id}.description`)}
                     </p>
 
                     {/* Tags */}
@@ -320,7 +315,7 @@ export default function Home() {
 
                     {/* CTA */}
                     <div className="flex items-center gap-1 text-xs text-primary/70 group-hover:text-primary transition-colors mt-auto">
-                      <span>进入</span>
+                      <span>{t("home.enter")}</span>
                       <ChevronRight
                         size={12}
                         className="group-hover:translate-x-1 transition-transform"
@@ -337,18 +332,18 @@ export default function Home() {
       {/* ══════════════════════════════════════════════════════
           最新产出
           ══════════════════════════════════════════════════════ */}
-      <section className="py-20 bg-muted/5">
+      <section className="py-20 bg-muted/5 border-t border-border">
         <div className="container">
           <div className="mb-10">
             <div className="flex items-center gap-3 mb-3">
               <div className="wsl-divider flex-1" />
               <span className="text-xs font-mono text-primary tracking-widest uppercase px-3">
-                Recent Outputs
+                {t("home.recentOutputs")}
               </span>
               <div className="wsl-divider flex-1" />
             </div>
-            <h2 className="section-title text-3xl">最新产出</h2>
-            <p className="text-muted-foreground mt-2">近期分析图与项目成果</p>
+            <h2 className="section-title text-3xl">{t("home.recentTitle")}</h2>
+            <p className="text-muted-foreground mt-2">{t("home.recentDesc")}</p>
           </div>
 
           {/* 此处后续对接真实API：GET /api/posts/recent?limit=3 */}
@@ -397,7 +392,7 @@ export default function Home() {
                           {item.date}
                         </span>
                         <span className="text-xs text-primary/70 group-hover:text-primary transition-colors flex items-center gap-1">
-                          查看
+                          {t("home.view")}
                           <ChevronRight size={10} />
                         </span>
                       </div>
@@ -437,23 +432,21 @@ export default function Home() {
               </span>
             </div>
 
-            <h2 className="section-title text-3xl text-center mb-8">关于</h2>
+            <h2 className="section-title text-3xl text-center mb-8">{t("home.about.title")}</h2>
 
             {/* Main quote */}
             <blockquote className="text-base text-foreground/80 leading-relaxed border-l-2 border-primary/40 pl-6 mb-6">
-              从探空气球到盘古大模型，从GIS测绘老建筑到AI出图，从超算机房到云GPU——工具换了，但一直在研究同一件事：如何让数据说出它本来想说的话。
+              {t("home.about.quote")}
             </blockquote>
 
             {/* WSL name note */}
             <p className="text-sm text-muted-foreground pl-6 mb-6 italic">
-              W Studio Lab（WSL）——是的，和那个Linux子系统同名，但我们预报的是真实的天气。
+              {t("home.about.wslNote")}
             </p>
 
             {/* Description */}
             <p className="text-sm text-muted-foreground leading-relaxed pl-6">
-              W Studio Lab 是一个独立技术实验室，专注于跨领域科学计算与AI工程应用。
-              核心方向包括AI气象大模型推理、新能源功率预测、城市数字孪生与工程AI实践。
-              技术说话，不过度包装。
+              {t("home.about.description")}
             </p>
           </div>
         </div>

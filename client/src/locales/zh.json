@@ -1,76 +1,178 @@
 {
-  "header": {
-    "tagline": "独立技术实验室 · 气候 × 城市 × AI",
-    "showcase": "AI Weather Showcase"
+  "nav": {
+    "weather": "AI气象",
+    "energy": "能碳·新能源",
+    "env": "环境监测",
+    "city": "城市数字",
+    "works": "工程AI",
+    "notes": "技术笔记",
+    "colorScheme": "配色方案",
+    "langSwitch": "EN",
+    "langSwitchTitle": "Switch to English",
+    "langSwitchFull": "Switch to English",
+    "brandSubtitle": "工作室实验室",
+    "themeA": "方案A · 黑金科技风",
+    "themeB": "方案B · 深海蓝+橙",
+    "themeC": "方案C · 蒂凡尼绿"
   },
-  "weather": {
-    "badge": "AI Weather Forecast · FuXi",
-    "title": "华东7天天气形势分析",
-    "desc": "基于FuXi（伏羲，复旦大学）大模型，NVIDIA Earth-2 框架推理，{{initTime}} 起报，预报时效7天，输出6个变量。",
-    "tags": ["FuXi", "Earth-2", "7天预报", "6变量", "华东"],
-    "selectDate": "选择日期：",
-    "prevDay": "上一天",
-    "nextDay": "下一天",
-    "zoomIn": "放大查看",
-    "clickZoom": "点击放大",
-    "initTime": "起报时间：",
-    "model": "模型：",
-    "region": "预报区域：",
-    "eastChina": "华东地区",
-    "forecastRange": "预报时效：",
-    "days7": "7天",
-    "variables": "输出变量：",
-    "vars6": "6个变量",
-    "dataSource": "数据来源：",
-    "gfsData": "NOAA GFS 公开数据"
+  "home": {
+    "badge": "Independent Tech Lab",
+    "subtitle": "工作室实验室 · 独立技术实验室",
+    "tagline": "气候 × 城市 × AI",
+    "desc": "用数据理解蓝星，用技术服务城市",
+    "quote": "工具换了，但一直在研究同一件事：如何让数据说出它本来想说的话。",
+    "cta1": "探索研究方向",
+    "cta2": "查看全部作品",
+    "researchModules": "Research Modules",
+    "researchTitle": "探索研究方向",
+    "researchDesc": "六个方向，从大气到城市，从数据到工程",
+    "recentOutputs": "Recent Outputs",
+    "recentTitle": "最新产出",
+    "recentDesc": "近期分析图与项目成果",
+    "enter": "进入",
+    "statusDev": "🔄 开发中",
+    "view": "查看",
+    "prevSlide": "上一张",
+    "nextSlide": "下一张",
+    "slideN": "切换到第{{n}}张",
+    "domainTags": ["AI气象模式", "双碳·新能源", "大气环境", "数字城市", "AI工程实践", "气候思考"],
+    "about": {
+      "title": "W Studio Lab",
+      "quote": "工具换了，但一直在研究同一件事：如何让数据说出它本来想说的话。",
+      "wslNote": "WSL = W Studio Lab，也是 Windows Subsystem for Linux，这是巧合，也是隐喻。",
+      "description": "气象 × 城市 × AI，跨领域科学计算与AI工程应用的独立技术实验室。用数据理解蓝星，用技术服务城市。"
+    }
   },
-  "capabilities": {
-    "sectionLabel": "Research & Capabilities",
-    "sectionDesc": "AI 气象只是其中一个切面 · 以下是更广泛的研究与工程方向",
-    "notesMore": "// 更多持续更新中",
-    "items": [
-      {
-        "title": "AI 气象预报",
-        "subtitle": "AI Weather Forecast",
-        "desc": "基于复旦大学 FuXi 大模型与 NVIDIA Earth-2 推理框架，实现 7 天时效、6 变量的华东区域气象预报，推理时间约 24 分钟，预报精确度接近 ECMWF 水平。",
-        "tags": ["FuXi", "Pangu-Weather", "NVIDIA Earth-2", "GFS 初始场"]
-      },
-      {
-        "title": "能碳 · 新能源",
-        "subtitle": "Carbon & Renewable Energy",
-        "desc": "结合气象数据与能源模型，开展风光发电评估、碳排放核算与双碳路径分析，为新能源项目提供数据支撑。",
-        "tags": ["双碳分析", "风光发电评估", "碳排放核算", "能源规划"]
-      },
-      {
-        "title": "环境保护与监测",
-        "subtitle": "Environmental Monitoring",
-        "desc": "整合中国环境监测总站公开接口，实现 AQI、PM2.5、O₃ 等多污染物的实时监测与空间分布可视化，支持污染事件溯源分析。",
-        "tags": ["AQI 实时监测", "空气质量预报", "环境数据可视化", "多站点联动"]
-      },
-      {
-        "title": "数字城市 · GIS",
-        "subtitle": "Digital City & GIS",
-        "desc": "基于 WebGIS 技术栈，开展城市空间数据分析、热岛效应评估与三维城市建模，为城市规划与管理提供决策支持。",
-        "tags": ["WebGIS", "空间数据分析", "城市热岛", "三维可视化"]
-      },
-      {
-        "title": "AI 工程能力",
-        "subtitle": "AI Engineering",
-        "desc": "具备从模型推理、数据管线到前端可视化的全链路 AI 工程能力，熟练运用 AI Coding 工具加速开发，独立完成从 0 到 1 的技术产品构建与云端部署。",
-        "tags": ["AI Coding", "全栈部署", "LLM 应用", "Cloud / Docker"]
-      },
-      {
-        "title": "技术笔记",
-        "subtitle": "Tech Notes & Thinking",
-        "tags": ["AI气象", "新能源", "工程实践", "持续更新"]
-      }
-    ]
+  "pages": {
+    "city": {
+      "title": "城市数字实验室",
+      "subtitle": "历史建筑与城市空间的数字化",
+      "description": "浦东不可移动文物WebGIS可视化管理系统：241处文物空间分布、多维筛选、保护级别分析、Web-GIS交互。数据致谢 SJTU-IRCAHC。同时涵盖城市规划与GIS相关研究实践。",
+      "tags": ["WebGIS", "Leaflet", "GIS", "Python", "空间分析", "文物保护"],
+      "externalLinkLabel": "进入浦东文物 WebGIS 系统"
+    },
+    "energy": {
+      "title": "能碳与新能源",
+      "subtitle": "WRF+AI精细化光伏功率预测系统",
+      "description": "基于WRF区域气象模式与AI偏差订正技术，针对江苏常州分布式光伏场景，聚焦双细则考核痛点，构建精细化光伏功率预测系统。同时涵盖碳管理平台技术架构展示与双碳信息化实践记录。",
+      "tags": ["WRF", "ERA5", "XGBoost", "PVLib", "FastAPI", "Vue"],
+      "externalLinkLabel": "进入能碳平台",
+      "externalLinkNote": "可分享测试账号： mcdnhjz / 012345",
+      "comingSoonNote": "光伏预测系统目前在开发中，预计接入WRF区域模式 + AI偏差订正模块。完成后将展示精度对比、功率曲线预测与双细则考核分析。"
+    },
+    "env": {
+      "title": "环境监测",
+      "subtitle": "常州空气质量实时监测与智能预警平台",
+      "description": "基于中国环境监测总站公开接口，实时抓取常州市空气质量数据，提供AQI、PM2.5、PM10、SO₂、NO₂、CO、O₃等多污染物可视化展示与阈値报警功能。数据每小时自动更新，支持历史趋势分析。",
+      "tags": ["实时数据", "国家总站API", "Python", "Vue", "自动报警", "AQI"],
+      "externalLinkLabel": "进入常州 AQI 监测平台"
+    },
+    "works": {
+      "title": "工程AI作品集",
+      "subtitle": "从招投标到客服的AI全栈实践",
+      "description": "职务作品脱敏展示，仅限技术架构与功能说明。包含：BidMaster AI（AI辅助投标全栈平台，TypeScript前后端 + AI Agent，面向某检测机构）；UTIC客服中心（AI增强型服务门户，本地知识库 + Dify外挂，14530条数据零延迟检索）。",
+      "tags": ["TypeScript全栈", "Claude API", "Dify", "阿里云ECS", "FastAPI", "AI Agent"]
+    }
+  },
+  "modules": {
+    "weather": { "name": "AI气象·模式预报", "description": "盘古大模型与伏羲模型驱动的华东天气预报，7天时效，6变量可视化", "statusLabel": "已有产出" },
+    "energy": { "name": "双碳·新能源", "description": "WRF+AI精细化光伏功率预测，碳排放核算与双碳路径分析", "statusLabel": "开发中" },
+    "env": { "name": "大气环境监测", "description": "常州空气质量实时监测与预警，多污染物可视化，数据来源中国环境监测总站", "statusLabel": "已有产出" },
+    "city": { "name": "数字城市", "description": "历史建筑与城市空间的数字化，241处不可移动文物空间分布可视化", "statusLabel": "已有产出" },
+    "works": { "name": "AI工程实践", "description": "AI辅助投标系统（BidMaster）与智能客服门户（UTIC），TypeScript全栈+Claude API+Dify，从需求到云端部署全链路走通", "statusLabel": "已有产出" },
+    "notes": { "name": "气候思考", "description": "随笔与思考，看起来随意其实不然", "statusLabel": "持续更新" }
   },
   "notes": {
+    "breadcrumb": "技术笔记",
+    "title": "技术笔记",
+    "desc": "随笔与思考，不定期发布。看起来随意，其实不然。",
+    "placeholder": "// 更多笔记持续更新中",
+    "placeholderSub": "后续通过 markdown 文件添加内容",
+    "backHome": "返回首页",
     "titles": [
       "AI气象大模型技术演进：Pangu / FuXi / GraphCast 分层解析",
       "双细则考核与光伏预测的商业逻辑",
       "从WRF到Earth-2：一个预报员的技术迁移路径"
+    ],
+    "excerpts": [
+      "从物理方程到数据驱动，三代气象大模型的技术路线对比与个人实测体验。",
+      "江苏双细则考核机制下，光伏功率预测误差如何直接影响电站收益。",
+      "十年数值预报经验遇上AI大模型，工具变了，但问题本质没变。"
+    ]
+  },
+  "weather": {
+    "breadcrumb": "AI气象预报",
+    "modelBadge": "AI WEATHER FORECAST · FUXI",
+    "title": "华东7天天气形势分析",
+    "descPre": "基于",
+    "descPost": "大模型，配合 NVIDIA Earth-2 推理框架，实现7天时效、6变量的华东区域气象预报。推理时间约24分钟，预报精度接近 ECMWF 水平。",
+    "initTime": "起报时间",
+    "forecastHorizon": "预报时效",
+    "forecastHorizonVal": "7天",
+    "variables": "输出变量",
+    "variablesVal": "6个",
+    "region": "预报区域",
+    "regionVal": "华东",
+    "selectDate": "选择日期：",
+    "syncHint": "· 6图同步 · 点击放大",
+    "pipeline": "技术管线",
+    "backHome": "返回首页",
+    "zoomIn": "放大",
+    "prevDay": "上一天",
+    "nextDay": "下一天",
+    "close": "关闭",
+    "clickZoom": "点击放大",
+    "fuxiDesc": "伏羲，复旦大学",
+    "tags": ["FuXi", "Earth-2", "7天预报", "6变量", "华东"],
+    "techParams": "技术参数",
+    "pipelineSteps": [
+      { "step": "01", "label": "GFS 0.25°", "sub": "NOAA 全球分析场" },
+      null,
+      { "step": "02", "label": "FuXi 推理", "sub": "约34分钟" },
+      null,
+      { "step": "03", "label": "zarr 输出", "sub": "6变量存储" },
+      null,
+      { "step": "04", "label": "6变量可视化", "sub": "Python matplotlib" }
+    ],
+    "meta": {
+      "model": "模型",
+      "framework": "推理框架",
+      "initData": "初始场",
+      "resolution": "空间分辨率",
+      "forecastHours": "预报时效",
+      "region": "预报区域",
+      "inferenceTime": "推理耗时",
+      "outputVars": "输出变量",
+      "initTime": "起报时间",
+      "pipeline": "技术管线"
+    }
+  },
+  "placeholder": {
+    "contentDev": "// 完整页面内容开发中，敬请期待",
+    "contentDevSub": "Page content under development",
+    "enterPlatform": "进入平台",
+    "backHome": "返回首页"
+  },
+  "share": {
+    "badge": "AI WEATHER SHOWCASE",
+    "brandSubtitle": "独立技术实验室 · 气候 × 城市 × AI",
+    "intro": "AI 气象只是其中一个切面，以下是更广泛的研究与工程方向",
+    "researchTitle": "Research & Capabilities",
+    "researchSubtitle": "研究方向与技术能力",
+    "notesMore": "// 更多持续更新中",
+    "pipeline": "技术管线",
+    "selectDate": "选择日期：",
+    "syncHint": "· 6图同步 · 点击放大",
+    "zoomIn": "放大",
+    "prevDay": "上一天",
+    "nextDay": "下一天",
+    "capabilities": [
+      { "title": "AI气象预报", "subtitle": "AI Weather Forecast", "desc": "基于复旦大学 FuXi 大模型与 NVIDIA Earth-2 推理框架，实现 7 天时效、6 变量的华东区域气象预报，推理时间约 24 分钟，预报精度接近 ECMWF 水平。", "tags": ["FuXi / Pangu-Weather", "NVIDIA Earth-2", "GFS 初始场", "7天时效"] },
+      { "title": "能碳·新能源", "subtitle": "Carbon & Renewable Energy", "desc": "结合气象数据与能源模型，开展光伏资源评估、碳排放核算与双碳路径分析，为新能源项目提供数据支撑。", "tags": ["双碳分析", "光伏资源评估", "碳排放核算", "能源规划"] },
+      { "title": "环境保护与监测", "subtitle": "Environmental Monitoring", "desc": "整合中国环境监测总站公开接口，实现 AQI、PM2.5、O₃ 等多污染物的实时监测与空间分布可视化，支持污染事件溯源分析。", "tags": ["AQI 实时监测", "空气质量预报", "环境数据可视化", "多站点联动"] },
+      { "title": "数字城市 · GIS", "subtitle": "Digital City & GIS", "desc": "基于 WebGIS 技术栈，开展城市空间数据分析、热岛效应评估与三维城市建模，为城市规划与管理提供决策支持。", "tags": ["WebGIS", "空间数据分析", "城市热岛", "三维可视化"] },
+      { "title": "AI 工程能力", "subtitle": "AI Engineering", "desc": "具备从模型推理、数据管线到前端可视化的全链路 AI 工程能力，熟练运用 AI Coding 工具加速开发，独立完成从 0 到 1 的技术产品构建与云端部署。", "tags": ["AI Coding", "全栈部署", "LLM 应用", "Cloud / Docker"] },
+      { "title": "技术笔记", "subtitle": "Tech Notes & Thinking", "tags": ["AI气象", "新能源", "工程实践", "持续更新"] }
     ]
   },
   "footer": {
@@ -89,6 +191,7 @@
     "10m 风速 + 风羽",
     "逐日降水量（24h累积）"
   ],
+  "figSubtitles": ["Z500 + SLP", "Wind850 + Barbs", "RH700 + Wind", "SLP + T2m", "Wind10m + Barbs", "Precip 24h"],
   "figExplanations": [
     "500hPa位势高度场是天气预报的核心参考层，代表对流层中部（约5500米）的大气流型形势。蓝色等值线密集区对应槽线（冷空气活动），红橙色区域对应脊（高压控制）。叠加的海平面气压等值线（黑色）揭示地面天气系统位置。从Mar29到Apr04的演变可清晰看到西风槽东移、华东地区受高压脊控制的过程，这是判断未来一周晴雨格局的核心依据。",
     "850hPa是大气边界层顶附近的关键层次，风场在此层最能代表低层大气的水汽输送方向。风羽（barb）表示风向和风速，每个完整羽毛代表10节（约5m/s）。从图中可以判断：西南风控制区域对应水汽输送通道，是降水的必要条件；偏北风区域则对应冷空气南下路径。该图是判断华东降水落区和强度的关键参考。",

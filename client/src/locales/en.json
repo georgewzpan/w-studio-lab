@@ -1,85 +1,187 @@
 {
-  "header": {
-    "tagline": "Independent Tech Lab · Climate × City × AI",
-    "showcase": "AI Weather Showcase"
+  "nav": {
+    "weather": "AI Weather",
+    "energy": "Carbon & Energy",
+    "env": "Env Monitor",
+    "city": "Digital City",
+    "works": "AI Engineering",
+    "notes": "Tech Notes",
+    "colorScheme": "Color Scheme",
+    "langSwitch": "中",
+    "langSwitchTitle": "切换为中文",
+    "langSwitchFull": "切换为中文",
+    "brandSubtitle": "Independent Tech Lab",
+    "themeA": "Theme A · Black & Gold",
+    "themeB": "Theme B · Deep Blue + Orange",
+    "themeC": "Theme C · Tiffany Green"
   },
-  "weather": {
-    "badge": "AI Weather Forecast · FuXi",
-    "title": "East China 7-Day Weather Analysis",
-    "desc": "Powered by FuXi (Fudan University) large model with NVIDIA Earth-2 inference framework. Initialized at {{initTime}}, 7-day forecast horizon, 6 output variables.",
-    "tags": ["FuXi", "Earth-2", "7-Day Forecast", "6 Variables", "East China"],
-    "selectDate": "Select Date:",
-    "prevDay": "Previous Day",
-    "nextDay": "Next Day",
-    "zoomIn": "Zoom In",
-    "clickZoom": "Click to Zoom",
-    "initTime": "Init Time:",
-    "model": "Model:",
-    "region": "Region:",
-    "eastChina": "East China",
-    "forecastRange": "Forecast Range:",
-    "days7": "7 Days",
-    "variables": "Variables:",
-    "vars6": "6 Variables",
-    "dataSource": "Data Source:",
-    "gfsData": "NOAA GFS Open Data"
+  "home": {
+    "badge": "Independent Tech Lab",
+    "subtitle": "W Studio Lab · Independent Research Lab",
+    "tagline": "Climate × City × AI",
+    "desc": "Understanding the planet through data, serving cities through technology",
+    "quote": "The tools have changed, but the question remains the same: how to let data speak for itself.",
+    "cta1": "Explore Research",
+    "cta2": "View All Works",
+    "researchModules": "Research Modules",
+    "researchTitle": "Research Directions",
+    "researchDesc": "Six domains, from atmosphere to city, from data to engineering",
+    "recentOutputs": "Recent Outputs",
+    "recentTitle": "Latest Outputs",
+    "recentDesc": "Recent analysis charts and project results",
+    "enter": "Enter",
+    "statusDev": "🔄 In Development",
+    "view": "View",
+    "prevSlide": "Previous",
+    "nextSlide": "Next",
+    "slideN": "Slide {{n}}",
+    "domainTags": ["AI Weather", "Carbon & Energy", "Atm. Environment", "Digital City", "AI Engineering", "Climate Thinking"],
+    "about": {
+      "title": "W Studio Lab",
+      "quote": "The tools have changed, but we've always been studying the same thing: how to let data speak for itself.",
+      "wslNote": "WSL = W Studio Lab, also Windows Subsystem for Linux. A coincidence, and a metaphor.",
+      "description": "Climate \u00d7 City \u00d7 AI — an independent tech lab for cross-domain scientific computing and AI engineering. Understanding the planet through data, serving cities through technology."
+    }
   },
-  "capabilities": {
-    "sectionLabel": "Research & Capabilities",
-    "sectionDesc": "AI weather is just one facet · Broader research and engineering directions below",
-    "notesMore": "// More updates coming",
-    "items": [
-      {
-        "title": "AI Weather Forecast",
-        "subtitle": "AI Weather Forecast",
-        "desc": "Built on Fudan University's FuXi model and NVIDIA Earth-2 inference framework, delivering 7-day, 6-variable weather forecasts for East China. Inference time ~24 min, accuracy approaching ECMWF level.",
-        "tags": ["FuXi", "Pangu-Weather", "NVIDIA Earth-2", "GFS Initial Field"]
-      },
-      {
-        "title": "Carbon & Renewable Energy",
-        "subtitle": "Carbon & Renewable Energy",
-        "desc": "Integrating meteorological data with energy models for wind/solar power assessment, carbon emission accounting, and dual-carbon pathway analysis to support renewable energy projects.",
-        "tags": ["Dual-Carbon Analysis", "Wind/Solar Assessment", "Carbon Accounting", "Energy Planning"]
-      },
-      {
-        "title": "Environmental Monitoring",
-        "subtitle": "Environmental Monitoring",
-        "desc": "Integrating China's national environmental monitoring APIs for real-time AQI, PM2.5, and O₃ tracking with spatial visualization, supporting pollution source tracing.",
-        "tags": ["Real-time AQI", "Air Quality Forecast", "Env Data Viz", "Multi-station"]
-      },
-      {
-        "title": "Digital City & GIS",
-        "subtitle": "Digital City & GIS",
-        "desc": "WebGIS-based urban spatial analysis, urban heat island assessment, and 3D city modeling to support urban planning and management decision-making.",
-        "tags": ["WebGIS", "Spatial Analysis", "Urban Heat Island", "3D Visualization"]
-      },
-      {
-        "title": "AI Engineering",
-        "subtitle": "AI Engineering",
-        "desc": "Full-stack AI engineering capability spanning model inference, data pipelines, and frontend visualization. Proficient in AI Coding tools for accelerated development, independently shipping products from 0 to 1.",
-        "tags": ["AI Coding", "Full-stack Deploy", "LLM Apps", "Cloud / Docker"]
-      },
-      {
-        "title": "Tech Notes",
-        "subtitle": "Tech Notes & Thinking",
-        "tags": ["AI Weather", "Renewable Energy", "Engineering", "Ongoing"]
-      }
-    ]
+  "pages": {
+    "city": {
+      "title": "Digital City Lab",
+      "subtitle": "Digitalization of Historic Buildings & Urban Space",
+      "description": "Pudong Immovable Cultural Relics WebGIS Management System: spatial distribution of 241 relics, multi-dimensional filtering, protection level analysis, Web-GIS interaction. Data courtesy of SJTU-IRCAHC. Also covers urban planning and GIS research practices.",
+      "tags": ["WebGIS", "Leaflet", "GIS", "Python", "Spatial Analysis", "Heritage Protection"],
+      "externalLinkLabel": "Open Pudong Heritage WebGIS"
+    },
+    "energy": {
+      "title": "Carbon & Renewables",
+      "subtitle": "WRF+AI Refined Solar Power Forecasting System",
+      "description": "Based on WRF regional weather model and AI bias correction technology, targeting distributed PV scenarios in Changzhou, Jiangsu, focusing on dual-rule assessment pain points to build a refined solar power forecasting system. Also covers carbon management platform architecture and dual-carbon informatization practices.",
+      "tags": ["WRF", "ERA5", "XGBoost", "PVLib", "FastAPI", "Vue"],
+      "externalLinkLabel": "Open Carbon Platform",
+      "externalLinkNote": "Demo account: mcdnhjz / 012345",
+      "comingSoonNote": "The solar forecasting system is under development. Planned integration: WRF regional model + AI bias correction module. Upon completion, it will showcase accuracy comparisons, power curve forecasts, and dual-rule assessment analysis."
+    },
+    "env": {
+      "title": "Environmental Monitoring",
+      "subtitle": "Changzhou Real-time Air Quality Monitoring & Alert Platform",
+      "description": "Based on CNEMC public APIs, real-time Changzhou air quality data with AQI, PM2.5, PM10, SO\u2082, NO\u2082, CO, O\u2083 multi-pollutant visualization and threshold alerts. Data auto-updates hourly with historical trend analysis.",
+      "tags": ["Real-time Data", "CNEMC API", "Python", "Vue", "Auto Alert", "AQI"],
+      "externalLinkLabel": "Open Changzhou AQI Monitor"
+    },
+    "works": {
+      "title": "AI Engineering Portfolio",
+      "subtitle": "Full-stack AI Practice from Bidding to Customer Service",
+      "description": "Desensitized showcase of professional works, limited to technical architecture and feature descriptions. Includes: BidMaster AI (AI-assisted bidding full-stack platform, TypeScript front/back-end + AI Agent); UTIC Service Center (AI-enhanced service portal, local knowledge base + Dify integration, 14,530 records with zero-latency retrieval).",
+      "tags": ["TypeScript Full-stack", "Claude API", "Dify", "Alibaba Cloud ECS", "FastAPI", "AI Agent"]
+    }
+  },
+  "modules": {
+    "weather": { "name": "AI Weather · Forecast", "description": "East China weather forecast powered by Pangu & FuXi models, 7-day horizon, 6-variable visualization", "statusLabel": "Live" },
+    "energy": { "name": "Carbon & Renewables", "description": "WRF+AI refined solar power prediction, carbon accounting and dual-carbon pathway analysis", "statusLabel": "In Dev" },
+    "env": { "name": "Atmospheric Monitoring", "description": "Real-time Changzhou air quality monitoring, multi-pollutant visualization, data from CNEMC", "statusLabel": "Live" },
+    "city": { "name": "Digital City", "description": "Digitalization of historic buildings and urban space, spatial distribution of 241 immovable cultural relics", "statusLabel": "Live" },
+    "works": { "name": "AI Engineering", "description": "BidMaster (AI bidding system) & UTIC (smart service portal), TypeScript full-stack + Claude API + Dify, end-to-end from requirements to cloud deployment", "statusLabel": "Live" },
+    "notes": { "name": "Climate Thinking", "description": "Essays and reflections, seemingly casual but not really", "statusLabel": "Ongoing" }
   },
   "notes": {
+    "breadcrumb": "Tech Notes",
+    "title": "Tech Notes",
+    "desc": "Essays and reflections, published irregularly. Seemingly casual, but not really.",
+    "placeholder": "// More notes coming soon",
+    "placeholderSub": "Content will be added via markdown files",
+    "backHome": "Back to Home",
     "titles": [
       "AI Weather Model Evolution: Pangu / FuXi / GraphCast Layer-by-Layer Analysis",
-      "Dual-Assessment Policy and the Business Logic of Solar Power Forecasting",
-      "From WRF to Earth-2: A Forecaster's Technology Migration Path"
+      "Dual-Rule Assessment and the Business Logic of Solar Power Forecasting",
+      "From WRF to Earth-2: A Forecaster's Technical Migration Path"
+    ],
+    "excerpts": [
+      "From physical equations to data-driven models — a comparison of three generations of weather AI and personal hands-on experience.",
+      "Under Jiangsu's dual-rule assessment mechanism, how solar power forecast errors directly impact station revenue.",
+      "Ten years of NWP experience meets AI large models. The tools changed, but the core problem didn't."
+    ]
+  },
+  "weather": {
+    "breadcrumb": "AI Weather Forecast",
+    "modelBadge": "AI WEATHER FORECAST · FUXI",
+    "title": "East China 7-Day Weather Analysis",
+    "descPre": "Powered by",
+    "descPost": "large model with NVIDIA Earth-2 inference framework, delivering 7-day, 6-variable East China regional weather forecasts. Inference time ~24 minutes, accuracy approaching ECMWF level.",
+    "initTime": "Init Time",
+    "forecastHorizon": "Forecast Horizon",
+    "forecastHorizonVal": "7 Days",
+    "variables": "Output Variables",
+    "variablesVal": "6 Vars",
+    "region": "Region",
+    "regionVal": "East China",
+    "selectDate": "Select Date:",
+    "syncHint": "· 6 charts sync · Click to zoom",
+    "pipeline": "Tech Pipeline",
+    "backHome": "Back to Home",
+    "zoomIn": "Zoom In",
+    "prevDay": "Prev Day",
+    "nextDay": "Next Day",
+    "close": "Close",
+    "clickZoom": "Click to Zoom",
+    "fuxiDesc": "Fudan University",
+    "tags": ["FuXi", "Earth-2", "7-Day Forecast", "6 Variables", "East China"],
+    "techParams": "Technical Parameters",
+    "pipelineSteps": [
+      { "step": "01", "label": "GFS 0.25\u00b0", "sub": "NOAA Global Analysis" },
+      null,
+      { "step": "02", "label": "FuXi Inference", "sub": "~34 minutes" },
+      null,
+      { "step": "03", "label": "zarr Output", "sub": "6-variable storage" },
+      null,
+      { "step": "04", "label": "6-Var Visualization", "sub": "Python matplotlib" }
+    ],
+    "meta": {
+      "model": "Model",
+      "framework": "Inference Framework",
+      "initData": "Initial Field",
+      "resolution": "Spatial Resolution",
+      "forecastHours": "Forecast Horizon",
+      "region": "Forecast Region",
+      "inferenceTime": "Inference Time",
+      "outputVars": "Output Variables",
+      "initTime": "Init Time",
+      "pipeline": "Tech Pipeline"
+    }
+  },
+  "placeholder": {
+    "contentDev": "// Full page content under development",
+    "contentDevSub": "Page content under development",
+    "enterPlatform": "Enter Platform",
+    "backHome": "Back to Home"
+  },
+  "share": {
+    "badge": "AI WEATHER SHOWCASE",
+    "brandSubtitle": "Independent Tech Lab · Climate × City × AI",
+    "intro": "AI Weather is just one facet — here are broader research and engineering directions",
+    "researchTitle": "Research & Capabilities",
+    "researchSubtitle": "Research Directions & Technical Capabilities",
+    "notesMore": "// More notes coming soon",
+    "pipeline": "Tech Pipeline",
+    "selectDate": "Select Date:",
+    "syncHint": "· 6 charts sync · Click to zoom",
+    "zoomIn": "Zoom In",
+    "prevDay": "Prev Day",
+    "nextDay": "Next Day",
+    "capabilities": [
+      { "title": "AI Weather Forecast", "subtitle": "AI Weather Forecast", "desc": "Powered by Fudan University's FuXi model and NVIDIA Earth-2 inference framework, delivering 7-day, 6-variable East China regional forecasts in ~24 minutes, approaching ECMWF accuracy.", "tags": ["FuXi / Pangu-Weather", "NVIDIA Earth-2", "GFS Initial Field", "7-Day Horizon"] },
+      { "title": "Carbon & Renewables", "subtitle": "Carbon & Renewable Energy", "desc": "Combining meteorological data with energy models for solar resource assessment, carbon accounting, and dual-carbon pathway analysis to support renewable energy projects.", "tags": ["Dual-Carbon Analysis", "Solar Assessment", "Carbon Accounting", "Energy Planning"] },
+      { "title": "Environmental Monitoring", "subtitle": "Environmental Monitoring", "desc": "Integrating CNEMC public APIs for real-time monitoring and spatial visualization of AQI, PM2.5, O₃ and other pollutants, supporting pollution source tracing.", "tags": ["Real-time AQI", "Air Quality Forecast", "Env Data Viz", "Multi-Station"] },
+      { "title": "Digital City · GIS", "subtitle": "Digital City & GIS", "desc": "WebGIS-based urban spatial data analysis, urban heat island assessment, and 3D city modeling to support urban planning and management decision-making.", "tags": ["WebGIS", "Spatial Analysis", "Urban Heat Island", "3D Visualization"] },
+      { "title": "AI Engineering", "subtitle": "AI Engineering", "desc": "Full-stack AI engineering capability from model inference and data pipelines to frontend visualization. Proficient in AI Coding tools, independently building and deploying tech products end-to-end.", "tags": ["AI Coding", "Full-Stack Deploy", "LLM Apps", "Cloud / Docker"] },
+      { "title": "Tech Notes", "subtitle": "Tech Notes & Thinking", "tags": ["AI Weather", "Renewables", "Engineering", "Ongoing"] }
     ]
   },
   "footer": {
     "labDesc1": "Cross-domain Scientific Computing × AI Engineering — Independent Tech Lab",
     "labDesc2": "Climate × City × AI · Understanding the planet through data, serving cities through technology",
-    "dataAttr1": "Weather Data: NOAA GFS Open Data · AI Inference: NVIDIA Earth-2 / FuXi",
+    "dataAttr1": "Weather Data: NOAA GFS Public Data · AI Inference: NVIDIA Earth-2 / FuXi",
     "dataAttr2": "Environmental Data: China National Environmental Monitoring Centre",
     "dataAttr3": "Urban Data: SJTU-IRCAHC",
-    "copyright": "© 2026 W Studio Lab · The tools changed, but the research never stopped."
+    "copyright": "© 2026 W Studio Lab · The tools changed, but we've always been studying the same thing"
   },
   "figTitles": [
     "500hPa Geopotential Height + Sea Level Pressure",
@@ -89,12 +191,13 @@
     "10m Wind Speed + Wind Barbs",
     "Daily Precipitation (24h Accumulated)"
   ],
+  "figSubtitles": ["Z500 + SLP", "Wind850 + Barbs", "RH700 + Wind", "SLP + T2m", "Wind10m + Barbs", "Precip 24h"],
   "figExplanations": [
-    "The 500hPa geopotential height field is the core reference level for weather forecasting, representing the atmospheric flow pattern at mid-troposphere (~5500m). Dense blue contours indicate trough lines (cold air activity), while red-orange areas indicate ridges (high pressure control). Overlaid sea-level pressure contours (black) reveal surface weather system positions. The evolution from Mar 29 to Apr 04 clearly shows the eastward movement of westerly troughs and East China coming under high-pressure ridge control — the key basis for forecasting the week's sunny/rainy pattern.",
-    "The 850hPa level near the top of the atmospheric boundary layer is where wind fields best represent low-level moisture transport direction. Wind barbs indicate wind direction and speed, with each full barb representing 10 knots (~5 m/s). Southwest winds indicate moisture transport corridors — a necessary condition for precipitation; northerly winds indicate cold air intrusion paths. This chart is a key reference for determining precipitation location and intensity over East China.",
-    "The 700hPa relative humidity field is an important indicator of mid-level atmospheric moisture, directly related to cloud development and precipitation potential. RH >80% (dark areas) typically corresponds to cloud regions and potential precipitation zones; <30% (light areas) indicates dry descending airflow. The overlaid wind field shows mid-level steering flow direction, helping determine weather system movement paths. Combined with 850hPa moisture transport, this enables comprehensive assessment of precipitation probability distribution over East China.",
-    "The surface pressure field (sea-level pressure, SLP) is the most intuitive weather system indicator: low pressure centers (L) correspond to cyclonic circulation and upward motion; high pressure centers (H) correspond to anticyclones and fair weather. The 2m temperature (color fill) reflects near-surface thermal conditions, with warm/cold front positions identifiable through temperature gradient maxima. From Mar 29 to Apr 04, the eastward movement of frontal systems into the sea and the transition from rainy to fair weather over East China can be clearly tracked.",
-    "The 10m wind field directly reflects surface wind conditions, with direct applications in wind energy assessment, offshore operations, and urban ventilation. Wind barbs are accurate to 5 knots, enabling identification of strong wind zones (≥Beaufort 7). Combined with surface pressure gradients, wind causation can be determined (frontal passage, cyclone periphery, terrain acceleration, etc.). This chart is also an important reference for coastal disaster prevention, especially during spring when cold air activity is frequent — wind forecast accuracy directly impacts fishing and shipping safety.",
-    "Daily 24-hour accumulated precipitation is the most direct precipitation forecast product, with a color scale from light blue (light rain, <10mm) to deep red (heavy rain, >50mm). FuXi's precipitation forecasting performance approaches ECMWF level, particularly for large-scale precipitation systems (frontal rain, cyclonic rain). From the 7-day sequence, the timing and location of major precipitation events can be identified, providing decision support for agriculture, water conservancy, and urban drainage."
+    "The 500hPa geopotential height field is the core reference level for weather forecasting, representing the atmospheric flow pattern in the middle troposphere (~5500m). Dense blue contour regions correspond to troughs (cold air activity), while red-orange regions indicate ridges (high pressure control). Overlaid sea-level pressure contours (black) reveal surface weather system positions. The evolution from Mar29 to Apr04 clearly shows the eastward movement of the westerly trough and the subsequent high-pressure ridge control over East China — the key basis for forecasting the week's sunshine/rain pattern.",
+    "The 850hPa level near the top of the atmospheric boundary layer best represents low-level moisture transport direction. Wind barbs indicate wind direction and speed, with each full barb representing 10 knots (~5 m/s). Southwest wind zones indicate moisture transport corridors — a necessary condition for precipitation; northerly wind zones indicate cold air southward pathways. This chart is the key reference for determining precipitation location and intensity over East China.",
+    "The 700hPa relative humidity field is an important indicator of mid-level atmospheric moisture, directly linked to cloud development and precipitation potential. RH > 80% (dark areas) typically corresponds to cloud zones and potential precipitation; RH < 30% (light areas) indicates dry subsidence. The overlaid wind field shows mid-level steering flow direction, helping to determine weather system movement paths. Combined with 850hPa moisture transport, this provides a comprehensive assessment of precipitation probability distribution over East China.",
+    "The surface pressure field (sea-level pressure, SLP) is the most intuitive weather system indicator: low-pressure centers (L) correspond to cyclonic circulation and upward motion; high-pressure centers (H) correspond to anticyclones and fair weather. The 2m temperature (color fill) reflects near-surface thermal conditions, with warm/cold front positions identifiable through large temperature gradient zones. From Mar29 to Apr04, the eastward movement of the frontal system into the sea and the transition from cloudy/rainy to fair weather over East China can be clearly tracked.",
+    "The 10m wind field directly reflects surface wind conditions, with direct applications in wind energy assessment, offshore operations, and urban ventilation. Wind barbs are accurate to 5 knots, identifying strong wind zones (≥ Force 7). Combined with surface pressure gradients, the cause of strong winds can be determined (frontal passage, cyclone periphery, terrain acceleration, etc.). This chart is also an important reference for coastal disaster prevention, especially during the spring cold air season when accurate wind forecasts directly impact fishing and shipping safety.",
+    "Daily 24-hour accumulated precipitation is the most direct precipitation forecast product, with a color scale from light blue (light rain, < 10mm) to deep red (heavy rain, > 50mm). FuXi's precipitation forecast performance approaches ECMWF level, especially for large-scale precipitation systems (frontal rain, cyclonic rain). From the 7-day sequence, key precipitation event timing and locations can be identified, providing decision support for agriculture, water conservancy, and urban drainage."
   ]
 }

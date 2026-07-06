@@ -8,8 +8,10 @@ import { ChevronRight, FileText } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { NOTES_MOCK } from "@/lib/mockData";
+import { useTranslation } from "react-i18next";
 
 export default function Notes() {
+  const { t } = useTranslation();
   return (
     <div className="min-h-screen bg-background text-foreground">
       <Navbar />
@@ -22,7 +24,7 @@ export default function Notes() {
               W Studio Lab
             </Link>
             <ChevronRight size={12} />
-            <span className="text-primary">技术笔记</span>
+            <span className="text-primary">{t("notes.breadcrumb")}</span>
           </div>
 
           {/* Header */}
@@ -32,17 +34,17 @@ export default function Notes() {
                 <FileText size={20} />
               </div>
               <span className="text-xs px-3 py-1 rounded-full font-mono bg-primary/10 text-primary border border-primary/20">
-                ✅ 持续更新
+                ✅ {t("notes.status")}
               </span>
             </div>
             <h1
               className="text-4xl font-bold text-foreground mb-3"
               style={{ fontFamily: "'Space Grotesk', sans-serif" }}
             >
-              技术笔记
+              {t("notes.title")}
             </h1>
             <p className="text-muted-foreground">
-              随笔与思考，不定期发布。看起来随意，其实不然。
+              {t("notes.subtitle")}
             </p>
           </div>
 
@@ -91,10 +93,10 @@ export default function Notes() {
           {/* Placeholder for more notes */}
           <div className="mt-10 border border-dashed border-border rounded-lg p-8 text-center">
             <p className="text-sm text-muted-foreground/60 font-mono">
-              // 更多笔记持续更新中
+              {t("notes.moreComing")}
             </p>
             <p className="text-xs text-muted-foreground/40 mt-1">
-              后续通过 markdown 文件添加内容
+              {t("notes.moreComingNote")}
             </p>
           </div>
 
@@ -105,7 +107,7 @@ export default function Notes() {
               className="inline-flex items-center gap-2 text-sm text-primary/70 hover:text-primary transition-colors"
             >
               <ChevronRight size={14} className="rotate-180" />
-              返回首页
+              {t("common.backHome")}
             </Link>
           </div>
         </div>

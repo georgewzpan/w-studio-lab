@@ -25,6 +25,7 @@ import { ArrowLeft, ChevronLeft, ChevronRight, ZoomIn, X } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { FUXI_FIGURES, FUXI_DATES, WEATHER_META, WeatherFigure } from "@/lib/mockData";
+import { useTranslation } from "react-i18next";
 
 // Original image dimensions (7-column strip)
 const ORIG_W = 4176; // total width px
@@ -46,6 +47,7 @@ function FigureCard({
   dayIdx: number;
   onZoom: (fig: WeatherFigure, dayIdx: number) => void;
 }) {
+  const { t } = useTranslation();
   const containerRef = useRef<HTMLDivElement>(null);
   const [containerW, setContainerW] = useState(0);
 
@@ -77,8 +79,8 @@ function FigureCard({
         <button
           onClick={() => onZoom(fig, dayIdx)}
           className="flex-shrink-0 w-7 h-7 rounded border border-border bg-muted/30 flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/50 transition-colors"
-          title="放大查看"
-          aria-label="放大查看"
+          title={t("weather.zoomIn")}
+          aria-label={t("weather.zoomIn")}
         >
           <ZoomIn size={13} />
         </button>
@@ -116,7 +118,7 @@ function FigureCard({
         <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
           <span className="flex items-center gap-1.5 px-3 py-1.5 rounded border border-primary/50 bg-background/80 text-primary text-xs font-mono">
             <ZoomIn size={12} />
-            点击放大
+            {t("weather.clickZoom")}
           </span>
         </div>
       </div>
@@ -159,6 +161,7 @@ function Lightbox({
   onNextDay: () => void;
   onSetDay: (i: number) => void;
 }) {
+  const { t } = useTranslation();
   // Measure the actual rendered height of the image container so we can
   // derive an exact pixel width = height × COL_ASPECT.
   const wrapRef = useRef<HTMLDivElement>(null);
@@ -207,7 +210,7 @@ function Lightbox({
           <button
             onClick={onClose}
             className="flex-shrink-0 w-8 h-8 rounded border border-white/20 flex items-center justify-center text-white/60 hover:text-white hover:border-white/50 transition-colors"
-            aria-label="关闭"
+            aria-label={t("weather.close")}
           >
             <X size={16} />
           </button>
@@ -249,7 +252,7 @@ function Lightbox({
             onClick={(e) => { e.stopPropagation(); onPrevDay(); }}
             disabled={dayIdx === 0}
             className="absolute left-3 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-black/70 border border-white/20 flex items-center justify-center text-white hover:bg-yellow-400/20 hover:border-yellow-400/50 transition-colors disabled:opacity-20 disabled:cursor-not-allowed"
-            aria-label="上一天"
+            aria-label={t("weather.prevDay")}
           >
             <ChevronLeft size={20} />
           </button>
@@ -257,7 +260,7 @@ function Lightbox({
             onClick={(e) => { e.stopPropagation(); onNextDay(); }}
             disabled={dayIdx === 6}
             className="absolute right-3 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-black/70 border border-white/20 flex items-center justify-center text-white hover:bg-yellow-400/20 hover:border-yellow-400/50 transition-colors disabled:opacity-20 disabled:cursor-not-allowed"
-            aria-label="下一天"
+            aria-label={t("weather.nextDay")}
           >
             <ChevronRight size={20} />
           </button>
@@ -297,6 +300,7 @@ function Lightbox({
 
 // ─── Main page ────────────────────────────────────────────────────────────────
 export default function Weather() {
+  const { t } = useTranslation();
   // Shared day index: all 6 figures sync to this
   const [dayIdx, setDayIdx] = useState(0);
 
@@ -330,7 +334,7 @@ export default function Weather() {
             className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-primary transition-colors mb-6 font-mono"
           >
             <ArrowLeft size={12} />
-            返回首页
+            {t("weather.backHome")}
           </Link>
 
           <div className="flex items-start justify-between flex-wrap gap-4">
@@ -338,22 +342,21 @@ export default function Weather() {
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded border border-primary/30 bg-primary/5 mb-3">
                 <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
                 <span className="text-xs font-mono text-primary tracking-widest uppercase">
-                  AI Weather Forecast · FuXi
+                  {t("weather.modelBadge")}
                 </span>
               </div>
               <h1
                 className="text-3xl lg:text-4xl font-bold text-foreground"
                 style={{ fontFamily: "'Space Grotesk', sans-serif" }}
               >
-                华东7天天气形势分析
+                {t("weather.title")}
               </h1>
               <p className="text-muted-foreground mt-2 text-sm max-w-xl leading-relaxed">
-                基于<span className="text-foreground font-medium">FuXi（伏羲，复旦大学）</span>大模型，
-                NVIDIA Earth-2 框架推理，2026-03-29 00UTC 起报，预报时效7天，输出6个变量。
+                {t("weather.descPre")}<span className="text-foreground font-medium">FuXi（{t("weather.fuxiDesc")}）</span>{t("weather.descPost")}
               </p>
             </div>
             <div className="flex flex-wrap gap-2">
-              {["FuXi", "Earth-2", "7天预报", "6变量", "华东"].map((tag) => (
+              {(t("weather.tags", { returnObjects: true }) as string[]).map((tag: string) => (
                 <span key={tag} className="wsl-tag">
                   {tag}
                 </span>
@@ -368,14 +371,14 @@ export default function Weather() {
         <div className="container">
           <div className="flex items-center gap-2 flex-wrap">
             <span className="text-xs font-mono text-muted-foreground whitespace-nowrap">
-              选择日期：
+              {t("weather.selectDate")}
             </span>
             {/* Prev arrow */}
             <button
               onClick={() => setDayIdx((prev) => Math.max(0, prev - 1))}
               disabled={dayIdx === 0}
               className="w-7 h-7 rounded border border-border flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/50 transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
-              aria-label="上一天"
+              aria-label={t("weather.prevDay")}
             >
               <ChevronLeft size={14} />
             </button>
@@ -398,12 +401,12 @@ export default function Weather() {
               onClick={() => setDayIdx((prev) => Math.min(6, prev + 1))}
               disabled={dayIdx === 6}
               className="w-7 h-7 rounded border border-border flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/50 transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
-              aria-label="下一天"
+              aria-label={t("weather.nextDay")}
             >
               <ChevronRight size={14} />
             </button>
             <span className="text-xs text-muted-foreground font-mono hidden sm:inline">
-              · 6张图同步联动 · 点击图片可放大
+              {t("weather.syncHint")}
             </span>
           </div>
         </div>
@@ -432,22 +435,14 @@ export default function Weather() {
           <div className="flex items-center gap-3 mb-8">
             <div className="wsl-divider flex-1" />
             <span className="text-xs font-mono text-primary tracking-widest uppercase px-3">
-              Technical Pipeline
+              {t("weather.pipeline")}
             </span>
             <div className="wsl-divider flex-1" />
           </div>
 
           {/* Pipeline steps */}
           <div className="flex flex-wrap items-center gap-2 justify-center mb-10">
-            {[
-              { step: "01", label: "GFS 0.25°", sub: "NOAA 全球分析场" },
-              null,
-              { step: "02", label: "FuXi 推理", sub: "约34分钟" },
-              null,
-              { step: "03", label: "zarr 输出", sub: "6变量存储" },
-              null,
-              { step: "04", label: "6变量可视化", sub: "Python matplotlib" },
-            ].map((item, i) =>
+            {(t("weather.pipelineSteps", { returnObjects: true }) as Array<{ step: string; label: string; sub: string } | null>).map((item, i) =>
               item === null ? (
                 <span key={i} className="text-primary/40 text-lg font-mono">
                   →
@@ -469,23 +464,23 @@ export default function Weather() {
               className="text-base font-semibold text-foreground mb-4"
               style={{ fontFamily: "'Space Grotesk', sans-serif" }}
             >
-              技术参数
+              {t("weather.techParams")}
             </h3>
             <div className="wsl-card overflow-hidden">
               <table className="w-full text-sm">
                 <tbody>
                   {(
                     [
-                      ["模型", WEATHER_META.model],
-                      ["推理框架", WEATHER_META.framework],
-                      ["初始场", WEATHER_META.initData],
-                      ["空间分辨率", WEATHER_META.resolution],
-                      ["预报时效", WEATHER_META.forecastHours],
-                      ["预报区域", WEATHER_META.region],
-                      ["推理耗时", WEATHER_META.inferenceTime],
-                      ["输出变量", WEATHER_META.outputVars],
-                      ["起报时间", WEATHER_META.initTime],
-                      ["技术管线", WEATHER_META.pipeline],
+                      [t("weather.meta.model"), WEATHER_META.model],
+                      [t("weather.meta.framework"), WEATHER_META.framework],
+                      [t("weather.meta.initData"), WEATHER_META.initData],
+                      [t("weather.meta.resolution"), WEATHER_META.resolution],
+                      [t("weather.meta.forecastHours"), WEATHER_META.forecastHours],
+                      [t("weather.meta.region"), WEATHER_META.region],
+                      [t("weather.meta.inferenceTime"), WEATHER_META.inferenceTime],
+                      [t("weather.meta.outputVars"), WEATHER_META.outputVars],
+                      [t("weather.meta.initTime"), WEATHER_META.initTime],
+                      [t("weather.meta.pipeline"), WEATHER_META.pipeline],
                     ] as [string, string][]
                   ).map(([key, val], i) => (
                     <tr key={key} className={i % 2 === 0 ? "bg-muted/10" : ""}>

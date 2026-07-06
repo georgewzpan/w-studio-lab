@@ -8,6 +8,7 @@ import { ChevronRight, Construction, ExternalLink } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { getModuleIcon } from "@/components/ModuleIcons";
+import { useTranslation } from "react-i18next";
 
 interface PlaceholderPageProps {
   moduleId: string;
@@ -36,6 +37,7 @@ export default function PlaceholderPage({
   externalLinkLabel,
   externalLinkNote,
 }: PlaceholderPageProps) {
+  const { t } = useTranslation();
   return (
     <div className="min-h-screen bg-background text-foreground">
       <Navbar />
@@ -98,7 +100,7 @@ export default function PlaceholderPage({
                 className="btn-gold inline-flex items-center gap-2 w-fit"
               >
                 <ExternalLink size={14} />
-                {externalLinkLabel ?? "进入平台"}
+                {externalLinkLabel ?? t("placeholder.enterPlatform")}
               </a>
               {externalLinkNote && (
                 <p className="text-xs font-mono text-muted-foreground/60">{externalLinkNote}</p>
@@ -122,7 +124,7 @@ export default function PlaceholderPage({
               {getModuleIcon(moduleId, "text-muted-foreground/30", 32)}
             </div>
             <p className="text-sm text-muted-foreground/60 font-mono">
-              // 完整页面内容开发中，敬请期待
+              {t("placeholder.inDev")}
             </p>
             <p className="text-xs text-muted-foreground/40 mt-2">
               Page content under development
@@ -136,7 +138,7 @@ export default function PlaceholderPage({
               className="inline-flex items-center gap-2 text-sm text-primary/70 hover:text-primary transition-colors"
             >
               <ChevronRight size={14} className="rotate-180" />
-              返回首页
+              {t("placeholder.backHome")}
             </Link>
           </div>
         </div>
